@@ -1,0 +1,220 @@
+<div class="main-video-container">
+  <div class="banner_bg">
+    {% if section.settings.bg_type == 'image' %}
+      <div class="banner_img">
+        {% if section.settings.desktop_img != blank %}
+          {{
+            section.settings.desktop_img
+            | image_url: width: section.settings.desktop_img.width
+            | image_tag: loading: 'lazy', class: 'desktop_img'
+          }}
+        {% endif %}
+        {% if section.settings.mobile_img != blank %}
+          {{
+            section.settings.mobile_img
+            | image_url: width: section.settings.mobile_img.width
+            | image_tag: loading: 'lazy', class: 'mobile_img'
+          }}
+        {% endif %}
+      </div>
+    {% else %}
+      <div class="banner_video">
+        {% if section.settings.desktop_video != blank %}
+          {{
+            section.settings.desktop_video
+            | video_tag: autoplay: true, loop: true, muted: true, class: 'desktop_video'
+          }}
+        {% endif %}
+        {% if section.settings.mobile_video != blank %}
+          {{
+            section.settings.mobile_video
+            | video_tag: autoplay: true, loop: true, muted: true, class: 'mobile_video'
+          }}
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <!-- Moved text inside banner_bg -->
+    <div class="banner_content">
+      <div class="banner_content_inner">
+        <h3 class="banner_title">{{ section.settings.title }}</h3>
+        <p class="banner_subtitle">{{ section.settings.subtitle }}</p>
+        <a href="{{ section.settings.button_link }}" class="banner_button">{{ section.settings.button_text }}</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+   .banner_bg {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .banner_content {
+    position: absolute;
+    top: 46%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    z-index: 10;
+    width: 100%;
+    max-width: 590px;
+    padding: 20px;
+  }
+
+  .banner_img img,
+  .banner_video video {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .banner_title {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: {{ section.settings.hero_content_text_color }};
+  }
+
+  .banner_subtitle {
+    font-size: 16px;
+    font-weight: 600;
+    color: {{ section.settings.hero_content_text_color }};
+    line-height: 1.7;
+    letter-spacing: 0.05em;
+    font-family: Figs, Raleway, sans-serif;
+  }
+
+  .banner_button {
+    display: inline-block;
+    background: {{ section.settings.hero_content_button_bg }};
+    color: black;
+    padding: 12px 24px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 12px;
+    text-transform: uppercase;
+    border-radius: 5px;
+    border: none;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .banner_button:hover {
+    background: rgba(255, 255, 255, 0.8);
+  }
+
+  /* Responsive Fix */
+  @media (max-width: 768px) {
+
+    .banner_title {
+      font-size: 2rem;
+    }
+
+    .banner_subtitle {
+      font-size: 1rem;
+    }
+
+    .banner_button {
+      font-size: 0.8rem;
+      padding: 10px 20px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Video Hero",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Background Settings"
+    },
+    {
+      "type": "select",
+      "id": "bg_type",
+      "label": "Background Type",
+      "options": [
+        { "value": "image", "label": "Image" },
+        { "value": "video", "label": "Video" }
+      ],
+      "default": "video"
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop_img",
+      "label": "Desktop Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_img",
+      "label": "Mobile Image"
+    },
+    {
+      "type": "video",
+      "id": "desktop_video",
+      "label": "Desktop Video"
+    },
+    {
+      "type": "video",
+      "id": "mobile_video",
+      "label": "Mobile Video"
+    },
+
+    {
+      "type": "header",
+      "content": "Content Settings"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "FROM THE GROUND UP"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Start your journey on the right foot. FIGS | NEW BALANCE 997H is BACK, now in Mariner."
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Shop FIGS | NEW BALANCE"
+    },
+
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "hero_content_text_color",
+      "label": "Hero Content Text Color",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "hero_content_button_bg",
+      "label": "Hero Content Button Color",
+      "default": "#fff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video Hero"
+    }
+  ]
+}
+{% endschema %}

@@ -11,10 +11,10 @@
   "name": "t:sections.header.name",
   "type": "header",
   "sections": {
-    "announcement-bar": {
+    "announcement_bar_fAJMTf": {
       "type": "announcement-bar",
       "blocks": {
-        "announcement-bar-0": {
+        "announcement_UPeKWV": {
           "type": "announcement",
           "settings": {
             "text": "Welcome to our store",
@@ -22,13 +22,11 @@
           }
         }
       },
-      "block_order": [
-        "announcement-bar-0"
-      ],
+      "block_order": ["announcement_UPeKWV"],
       "settings": {
         "auto_rotate": false,
         "change_slides_speed": 5,
-        "color_scheme": "scheme-1",
+        "color_scheme": "",
         "show_line_separator": true,
         "show_social": false,
         "enable_country_selector": false,
@@ -55,8 +53,5 @@
       }
     }
   },
-  "order": [
-    "announcement-bar",
-    "header"
-  ]
+  "order": ["announcement_bar_fAJMTf", "header"]
 }

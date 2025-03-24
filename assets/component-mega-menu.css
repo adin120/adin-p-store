@@ -16,6 +16,14 @@
   top: 100%;
 }
 
+.mega-menu__content .mega-menu__list li:nth-child(1) {
+  grid-row: 1 / 3;
+}
+
+.mega-menu__content .mega-menu__list li:nth-child(2) {
+  grid-row: 1 / 2;
+}
+
 .shopify-section-header-sticky .mega-menu__content {
   max-height: calc(100vh - var(--header-bottom-position-desktop, 20rem) - 4rem);
 }
