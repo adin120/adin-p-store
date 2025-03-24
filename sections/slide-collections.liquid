@@ -2,10 +2,23 @@
 {
   "name": "Collections Slider",
   "settings": [],
-  "blocks": [],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Select Collection"
+        }
+      ]
+    }
+  ],
   "presets": [
     {
-      "name": "Collections Slider"
+      "name": "Collections Slider",
+      "blocks": []
     }
   ]
 }
@@ -16,14 +29,17 @@
 
 <section class="collections-slider-section">
   <div class="swiper collections-slider">
-    <div class="swiper-wrapper">
-      {% for collection in collections %}
-        <div class="swiper-slide collection-item">
-          <div class="collection-image-wrapper">
-            <img src="{{ collection.image | img_url: 'medium' }}" alt="{{ collection.title }}">
+    <div class="swiper-wrapper collection-items-wrapper">
+      {% for block in section.blocks %}
+        {% assign collection = collections[block.settings.collection] %}
+        {% if collection %}
+          <div class="swiper-slide collection-item">
+            <div class="collection-image-wrapper">
+              <img src="{{ collection.image | img_url: 'medium' }}" alt="{{ collection.title }}">
+            </div>
+            <p class="collection-title">{{ collection.title | upcase }}</p>
           </div>
-          <p class="collection-title">{{ collection.title | upcase }}</p>
-        </div>
+        {% endif %}
       {% endfor %}
     </div>
 
@@ -36,15 +52,19 @@
   document.addEventListener('DOMContentLoaded', function () {
     var swiper = new Swiper('.collections-slider', {
       slidesPerView: 'auto',
-      spaceBetween: 20,
       loop: false,
+      initialSlide: 0,
       navigation: {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
       },
       allowTouchMove: true,
       watchOverflow: true,
-
+      breakpoints: {
+        768: {
+          slidesPerGroup: 4,
+        },
+      },
       on: {
         init: function () {
           checkScreenSize();
@@ -77,16 +97,43 @@
     window.addEventListener('resize', checkScreenSize);
   });
 </script>
+
 <style>
   .collections-slider-section {
-    width: 90%;
+    max-width: 100% !important;
+    width: 100%;
     margin-top: 30px;
-    margin-left: auto;
     padding: 20px 0;
     display: flex;
     justify-content: flex-end;
     transition: max-width 0.3s ease-in-out;
     position: relative;
+  }
+
+  .collections-slider .swiper-wrapper {
+    gap: 10px;
+    padding-right: 150px;
+    padding-left: 150px;
+    display: flex;
+  }
+
+  @media (max-width: 768px) {
+    .collections-slider .swiper-wrapper {
+      gap: 16px !important;
+    }
+
+    .collections-slider .swiper-wrapper {
+      padding-inline: 20px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .collections-slider-section {
+      max-width: 100%;
+      width: 100%;
+      padding: 0;
+      margin: 0 auto;
+    }
   }
 
   .collections-slider .swiper-wrapper {
@@ -109,7 +156,7 @@
 
   @media (max-width: 768px) {
     .collection-item {
-      max-width: 120px;
+      max-width: 120px !important;
       width: 100%;
     }
   }
@@ -157,6 +204,25 @@
 
   .swiper-button-prev {
     left: 40px;
+  }
+
+  .swiper-button-prev {
+    background: #fff;
+  }
+
+  .swiper-button-next:hover,
+  .swiper-button-prev:hover {
+    background: #999 !important;
+  }
+
+  .swiper-button-prev:after,
+  .swiper-rtl .swiper-button-next:after {
+    content: 'prev';
+    position: absolute;
+    left: 27%;
+    top: 20%;
+    font-size: 23px;
+    color: #000;
   }
 
   @media (max-width: 768px) {
