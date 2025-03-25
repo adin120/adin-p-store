@@ -1,0 +1,252 @@
+{%- style -%}
+  .best-seller-{{ section.id }} {
+    width: 100%;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    background-color: {{ section.settings.section_bg_color }};
+  }
+  .best-seller__image {
+    width: 50%;
+    height: auto;
+    display: block;
+  }
+  .best-seller__image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .best-seller__content-wrapper {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .best-seller__content {
+    max-width: 550px;
+    padding: 40px;
+    text-align: {{ section.settings.text_alignment }};
+  }
+  .best-seller__title {
+    font-size: {{ section.settings.title_font_size }}px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: {{ section.settings.title_color }};
+  }
+  .best-seller__button {
+    display: inline-block;
+    color: {{ section.settings.button_text_color }};
+    background-color: {{ section.settings.button_bg_color }};
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 0.15em;
+    line-height: 23px;
+    margin: 0px 12px 22px;
+    position: relative;
+    text-transform: uppercase;
+  }
+
+  .best-seller__button::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    border-bottom: 2px solid {{ section.settings.button_underline_color }};
+    transition: all 0.3s ease;
+  }
+
+  .best-seller__button:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+    color: {{ section.settings.button_hover_text_color }};
+    background-color: {{ section.settings.button_hover_bg_color }};
+  }
+
+  .best-seller__button:hover::after {
+    border-bottom-color: {{ section.settings.button_hover_underline_color }};
+  }
+
+  @media (max-width: 768px) {
+    .best-seller-{{ section.id }} {
+      flex-direction: column;
+    }
+    .best-seller__image,
+    .best-seller__content-wrapper {
+      width: 100%;
+    }
+    .best-seller__content {
+      max-width: 100%;
+      padding: 30px 20px;
+    }
+  }
+  {% if section.settings.swap_layout %}
+    .best-seller-{{ section.id }} .best-seller__image {
+      order: 2;
+    }
+    .best-seller-{{ section.id }} .best-seller__content-wrapper {
+      order: 1;
+    }
+  {% endif %}
+{%- endstyle -%}
+
+<div class="best-seller-{{ section.id }}">
+  <div class="best-seller__content-wrapper">
+    <div class="best-seller__content">
+      {% if section.settings.title != blank %}
+        <h2 class="best-seller__title">{{ section.settings.title }}</h2>
+      {% endif %}
+      {% if section.settings.text != blank %}
+        <div class="best-seller__text">{{ section.settings.text }}</div>
+      {% endif %}
+      {% if section.settings.button_label != blank %}
+        <a href="{{ section.settings.button_link }}" class="best-seller__button">
+          {{ section.settings.button_label }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+  <div class="best-seller__image">
+    {% if section.settings.image != blank %}
+      <img src="{{ section.settings.image | img_url: '1200x' }}" alt="{{ section.settings.image.alt | escape }}">
+    {% else %}
+      {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Best Seller Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "checkbox",
+      "id": "swap_layout",
+      "label": "Swap Image & Text Sides",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Section Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "BEST SELLERS"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Color",
+      "default": "#282828"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size",
+      "label": "Title Font Size",
+      "min": 12,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Your favorite styles in core colors, here all year round.</p>"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#282828"
+    },
+    {
+      "type": "range",
+      "id": "text_font_size",
+      "label": "Text Font Size",
+      "min": 12,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "SHOP WOMEN"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button Background Color",
+      "default": "transparent"
+    },
+    {
+      "type": "color",
+      "id": "button_underline_color",
+      "label": "Button Underline Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Button Hover Text Color",
+      "default": "#888"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_color",
+      "label": "Button Hover Background Color",
+      "default": "transparent"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_underline_color",
+      "label": "Button Hover Underline Color",
+      "default": "#000000"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Best Seller Banner",
+      "category": "Image with text"
+    }
+  ]
+}
+{% endschema %}
