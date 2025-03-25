@@ -1,0 +1,279 @@
+{% schema %}
+{
+  "name": "Women's Products Slider",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Women's Best Sellers"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Select Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Products to show",
+      "min": 6,
+      "max": 20,
+      "step": 1,
+      "default": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "Women's Best Sellers Slider",
+      "category": "Collection"
+    }
+  ]
+}
+{% endschema %}
+
+{% style %}
+  .women-best-sellers {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    max-width: 100%;
+    margin: 0px auto;
+    padding: 10px;
+  }
+
+  .collection-product-title {
+    max-width: 1550px;
+    width: 100%;
+    padding-top: 100px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: 0.05em;
+    font-family: Figs, Raleway, sans-serif;
+  }
+
+  .products-slider {
+    position: relative;
+    width: 100%;
+  }
+
+  .slider-container {
+    display: flex;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    padding: 10px 0 30px;
+    overflow-x: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .slider-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .slider-item {
+    flex: 0 0 calc(23% - 15px);
+    scroll-snap-align: start;
+    min-width: 280px;
+  }
+
+  .product-image {
+    width: 90%;
+    height: 540px;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border-radius: 4px;
+  }
+
+  .product-title {
+    font-size: 16px;
+    margin-bottom: 5px;
+    font-weight: 600;
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .product-price {
+    font-size: 16px;
+    color: #000;
+    margin: 0;
+    padding-top: 10px;
+    font-weight: 600;
+  }
+
+  .slider-nav {
+    position: absolute;
+    top: 45%;
+    width: 98%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .slider-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #fff;
+    border: none;
+    color: #000;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    pointer-events: auto;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .slider-btn.prev {
+    left: 30px;
+  }
+
+  .slider-btn.next {
+    right: 30px;
+  }
+
+  .slider-btn:hover {
+    background: #e0e0e0;
+  }
+
+  .slider-btn svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .products-slider .slider-btn {
+    opacity: 1;
+  }
+
+  .product-link {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  @media (max-width: 1200px) {
+    .slider-item {
+      flex: 0 0 calc(33.333% - 15px);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .slider-item {
+      flex: 0 0 calc(50% - 15px);
+    }
+
+    .section-title {
+      font-size: 20px;
+    }
+
+    .product-image {
+      height: 300px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .slider-item {
+      flex: 0 0 calc(100% - 15px);
+    }
+
+    .product-image {
+      height: 250px;
+    }
+  }
+{% endstyle %}
+
+<div class="collection-product-title">
+  <h2 class="section-title">{{ section.settings.title }}</h2>
+</div>
+
+<div class="women-best-sellers">
+  <div class="products-slider">
+    <div class="slider-container" id="slider-{{ section.id }}">
+      {% assign collection = collections[section.settings.collection] %}
+      {% for product in collection.products limit: section.settings.products_to_show %}
+        <div class="slider-item">
+          <div class="product-card">
+            <a href="{{ product.url }}" class="product-link">
+              <img
+                src="{{ product.featured_image | img_url: '500x' }}"
+                alt="{{ product.title }}"
+                class="product-image"
+                loading="lazy"
+                width="500"
+                height="500"
+              >
+              <h3 class="product-title">{{ product.title }}</h3>
+              <p class="product-price">{{ product.price | money }}</p>
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="slider-nav">
+      <button class="slider-btn prev" onclick="scrollSlider('{{ section.id }}', -3)" aria-label="Previous products">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <button class="slider-btn next" onclick="scrollSlider('{{ section.id }}', 3)" aria-label="Next products">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const slider = document.getElementById('slider-{{ section.id }}');
+    const prevBtn = slider.closest('.products-slider').querySelector('.prev');
+    const nextBtn = slider.closest('.products-slider').querySelector('.next');
+
+    prevBtn.style.display = 'none';
+
+    slider.addEventListener('scroll', function () {
+      if (slider.scrollLeft <= 10) {
+        prevBtn.style.display = 'none';
+      } else {
+        prevBtn.style.display = 'flex';
+      }
+
+      if (slider.scrollLeft >= slider.scrollWidth - slider.clientWidth - 10) {
+        nextBtn.style.display = 'none';
+      } else {
+        nextBtn.style.display = 'flex';
+      }
+    });
+  });
+
+  function scrollSlider(sectionId, direction) {
+    const slider = document.getElementById(`slider-${sectionId}`);
+    const item = slider.querySelector('.slider-item');
+    const itemWidth = item.offsetWidth + 20; // Include gap
+    const scrollAmount = itemWidth * direction;
+
+    slider.scrollBy({
+      left: scrollAmount,
+      behavior: 'smooth',
+    });
+
+    const buttons = document
+      .querySelectorAll(`#slider-${sectionId}`)
+      .closest('.products-slider')
+      .querySelectorAll('.slider-btn');
+    buttons.forEach((btn) => (btn.disabled = true));
+    setTimeout(() => {
+      buttons.forEach((btn) => (btn.disabled = false));
+    }, 500);
+  }
+</script>
