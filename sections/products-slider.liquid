@@ -1,6 +1,6 @@
 {% schema %}
 {
-  "name": "Women's Products Slider",
+  "name": "Women's Best Sellers",
   "settings": [
     {
       "type": "text",
@@ -20,12 +20,39 @@
       "min": 6,
       "max": 20,
       "step": 1,
-      "default": 20
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "items_visible",
+      "label": "Visible items (desktop)",
+      "min": 3,
+      "max": 5,
+      "step": 0.1,
+      "default": 4.5
+    },
+    {
+      "type": "range",
+      "id": "items_to_scroll",
+      "label": "Items to scroll",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "edge_spacing",
+      "label": "Edge spacing",
+      "min": 20,
+      "max": 150,
+      "step": 5,
+      "default": 100
     }
   ],
   "presets": [
     {
-      "name": "Women's Best Sellers Slider",
+      "name": "Women's Best Sellers",
       "category": "Collection"
     }
   ]
@@ -33,247 +60,315 @@
 {% endschema %}
 
 {% style %}
-  .women-best-sellers {
+  .wb-sellers-slider {
     width: 100%;
     position: relative;
+    margin: 0 auto;
+    padding: 20px 0 40px;
     overflow: hidden;
-    max-width: 100%;
-    margin: 0px auto;
-    padding: 10px;
   }
 
-  .collection-product-title {
-    max-width: 1550px;
-    width: 100%;
-    padding-top: 100px;
+  @media (max-width: 768px) {
+    .wb-sellers-slider {
+      padding: 0px 10px 0px;
+      margin-bottom: 70px;
+    }
+  }
+
+  .wb-title-container {
+    max-width: 87%;
+    padding-top: 50px;
+    padding-bottom: 0;
     margin: 0 auto;
   }
 
-  .section-title {
+  @media (max-width: 768px) {
+    .wb-title-container {
+      padding-bottom: 10px;
+      max-width: 100%;
+      padding-inline: 20px;
+      padding-top: 20px;
+    }
+  }
+
+  .wb-section-title {
     font-size: 28px;
     font-weight: 700;
     line-height: 1.5;
     letter-spacing: 0.05em;
-    font-family: Figs, Raleway, sans-serif;
+    margin: 0;
   }
 
-  .products-slider {
-    position: relative;
+  @media (max-width: 768px) {
+    .wb-section-title {
+      font-size: 20px;
+    }
+  }
+
+  .wb-slider-container {
     width: 100%;
+    position: relative;
   }
 
-  .slider-container {
+  .wb-slider-track {
     display: flex;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-    padding: 10px 0 30px;
-    overflow-x: scroll;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+    padding-left: calc({{section.settings.edge_spacing}}px + 20px);
   }
 
-  .slider-container::-webkit-scrollbar {
-    display: none;
-  }
-
-  .slider-item {
-    flex: 0 0 calc(23% - 15px);
+  .wb-slide {
+    flex: 0 0 calc(100% / {{section.settings.items_visible}} - 20px);
+    margin-right: 20px;
     scroll-snap-align: start;
-    min-width: 280px;
   }
 
-  .product-image {
-    width: 90%;
-    height: 540px;
+  .wb-product-image {
+    width: 100%;
+    height: 530px;
     object-fit: cover;
     margin-bottom: 15px;
-    border-radius: 4px;
   }
 
-  .product-title {
+  .wb-product-title {
     font-size: 16px;
     margin-bottom: 5px;
     font-weight: 600;
-    margin: 0;
     line-height: 1.3;
+    margin: 0;
+    text-transform: uppercase;
   }
 
-  .product-price {
+  .wb-product-price {
     font-size: 16px;
     color: #000;
-    margin: 0;
-    padding-top: 10px;
     font-weight: 600;
+    margin: 0;
   }
 
-  .slider-nav {
-    position: absolute;
-    top: 45%;
-    width: 98%;
-    transform: translateY(-50%);
-    pointer-events: none;
-    z-index: 2;
+  @media (max-width: 768px) {
+    .wb-product-title {
+      font-size: 12px;
+    }
+
+    .wb-product-price {
+      font-size: 12px;
+    }
   }
 
-  .slider-btn {
+  .wb-slider-btn {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     background: #fff;
-    border: none;
-    color: #000;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 280px;
+    transform: translateY(-50%);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: absolute;
-    pointer-events: auto;
+    z-index: 2;
+    transition: all 0.3s ease;
+  }
+
+  .wb-slider-btn-prev {
+    left: 20px;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    pointer-events: none;
   }
 
-  .slider-btn.prev {
-    left: 30px;
+  .wb-slider-btn-next {
+    right: 20px;
   }
 
-  .slider-btn.next {
-    right: 30px;
+  .wb-slider-btn svg {
+    width: 18px;
+    height: 18px;
   }
 
-  .slider-btn:hover {
-    background: #e0e0e0;
-  }
-
-  .slider-btn svg {
-    width: 24px;
-    height: 24px;
-  }
-
-  .products-slider .slider-btn {
-    opacity: 1;
-  }
-
-  .product-link {
+  .wb-product-link {
     text-decoration: none;
     color: inherit;
+    display: block;
+  }
+
+  @media (max-width: 1440px) {
+    .wb-product-image {
+      height: 300px;
+    }
+
+    .wb-slider-btn {
+      top: 240px;
+    }
+
+    .wb-product-title {
+      font-size: 12px;
+    }
+
+    .wb-product-price {
+      font-size: 12px;
+    }
   }
 
   @media (max-width: 1200px) {
-    .slider-item {
-      flex: 0 0 calc(33.333% - 15px);
+    .wb-slide {
+      flex: 0 0 calc(100% / 3.5 - 20px);
+    }
+    .wb-product-image {
+      height: 420px;
+    }
+    .wb-slider-btn {
+      top: 210px;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .wb-slide {
+      flex: 0 0 calc(100% / 2.75 - 20px);
+    }
+    .wb-product-image {
+      height: 380px;
+    }
+    .wb-slider-btn {
+      top: 190px;
     }
   }
 
   @media (max-width: 768px) {
-    .slider-item {
-      flex: 0 0 calc(50% - 15px);
+    .wb-product-image {
+      height: auto;
     }
 
-    .section-title {
-      font-size: 20px;
+    .wb-product-title {
+      font-weight: normal;
     }
 
-    .product-image {
-      height: 300px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .slider-item {
-      flex: 0 0 calc(100% - 15px);
+    div#wb-slider-track {
+      padding-right: 0 !important;
     }
 
-    .product-image {
-      height: 250px;
+    .wb-slider-btn {
+      top: 109px;
+    }
+    .wb-slider-track {
+      padding-left: 10px !important;
     }
   }
 {% endstyle %}
 
-<div class="collection-product-title">
-  <h2 class="section-title">{{ section.settings.title }}</h2>
+<div class="wb-title-container">
+  <h2 class="wb-section-title">{{ section.settings.title }}</h2>
 </div>
 
-<div class="women-best-sellers">
-  <div class="products-slider">
-    <div class="slider-container" id="slider-{{ section.id }}">
+<div class="wb-sellers-slider">
+  <div class="wb-slider-container">
+    <div class="wb-slider-track" id="wb-slider-track">
       {% assign collection = collections[section.settings.collection] %}
       {% for product in collection.products limit: section.settings.products_to_show %}
-        <div class="slider-item">
-          <div class="product-card">
-            <a href="{{ product.url }}" class="product-link">
-              <img
-                src="{{ product.featured_image | img_url: '500x' }}"
-                alt="{{ product.title }}"
-                class="product-image"
-                loading="lazy"
-                width="500"
-                height="500"
-              >
-              <h3 class="product-title">{{ product.title }}</h3>
-              <p class="product-price">{{ product.price | money }}</p>
-            </a>
-          </div>
+        <div class="wb-slide">
+          <a href="{{ product.url }}" class="wb-product-link">
+            <img
+              src="{{ product.featured_image | img_url: '600x' }}"
+              alt="{{ product.title }}"
+              class="wb-product-image"
+              loading="lazy"
+              width="600"
+              height="600"
+            >
+            <h3 class="wb-product-title">{{ product.title }}</h3>
+            <p class="wb-product-price">{{ product.price | money }}</p>
+          </a>
         </div>
       {% endfor %}
     </div>
 
-    <div class="slider-nav">
-      <button class="slider-btn prev" onclick="scrollSlider('{{ section.id }}', -3)" aria-label="Previous products">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
-      <button class="slider-btn next" onclick="scrollSlider('{{ section.id }}', 3)" aria-label="Next products">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
-    </div>
+    <button class="wb-slider-btn wb-slider-btn-prev" id="wb-prev-btn">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <button class="wb-slider-btn wb-slider-btn-next" id="wb-next-btn">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
   </div>
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const slider = document.getElementById('slider-{{ section.id }}');
-    const prevBtn = slider.closest('.products-slider').querySelector('.prev');
-    const nextBtn = slider.closest('.products-slider').querySelector('.next');
+    document.addEventListener('DOMContentLoaded', function() {
+    const track = document.getElementById('wb-slider-track');
+    const prevBtn = document.getElementById('wb-prev-btn');
+    const nextBtn = document.getElementById('wb-next-btn');
+    const slides = document.querySelectorAll('.wb-slide');
+    const edgeSpacing = {{ section.settings.edge_spacing }};
+    const itemsToScroll = {{ section.settings.items_to_scroll }};
+    let currentPosition = 0;
+    let maxPosition = 0;
+    let slideWidth = 0;
 
-    prevBtn.style.display = 'none';
+    function initSlider() {
+        slideWidth = slides[0].offsetWidth + 20;
+        const containerWidth = track.parentElement.offsetWidth;
+        const totalWidth = (slideWidth * slides.length) - 20; 
+        maxPosition = totalWidth - containerWidth + edgeSpacing;
+        
+        track.style.paddingLeft = `${edgeSpacing + 20}px`;
+        track.style.paddingRight = '0';
+        
+        updateButtons();
+    }
 
-    slider.addEventListener('scroll', function () {
-      if (slider.scrollLeft <= 10) {
-        prevBtn.style.display = 'none';
-      } else {
-        prevBtn.style.display = 'flex';
-      }
-
-      if (slider.scrollLeft >= slider.scrollWidth - slider.clientWidth - 10) {
-        nextBtn.style.display = 'none';
-      } else {
-        nextBtn.style.display = 'flex';
-      }
-    });
-  });
-
-  function scrollSlider(sectionId, direction) {
-    const slider = document.getElementById(`slider-${sectionId}`);
-    const item = slider.querySelector('.slider-item');
-    const itemWidth = item.offsetWidth + 20; // Include gap
-    const scrollAmount = itemWidth * direction;
-
-    slider.scrollBy({
-      left: scrollAmount,
-      behavior: 'smooth',
+    track.addEventListener('mousedown', function(e) {
+        e.preventDefault();
     });
 
-    const buttons = document
-      .querySelectorAll(`#slider-${sectionId}`)
-      .closest('.products-slider')
-      .querySelectorAll('.slider-btn');
-    buttons.forEach((btn) => (btn.disabled = true));
-    setTimeout(() => {
-      buttons.forEach((btn) => (btn.disabled = false));
-    }, 500);
-  }
+    function updateButtons() {
+        if (currentPosition <= 10) {
+        prevBtn.style.opacity = '0';
+        prevBtn.style.pointerEvents = 'none';
+        track.style.paddingLeft = `${edgeSpacing + 20}px`;
+        track.style.paddingRight = '0';
+        } else {
+        prevBtn.style.opacity = '1';
+        prevBtn.style.pointerEvents = 'auto';
+        track.style.paddingLeft = '20px';
+        track.style.paddingRight = '0';
+        }
+
+        if (currentPosition >= maxPosition - 10) {
+        nextBtn.style.opacity = '0';
+        nextBtn.style.pointerEvents = 'none';
+        track.style.paddingRight = `${edgeSpacing}px`;
+        } else {
+        nextBtn.style.opacity = '1';
+        nextBtn.style.pointerEvents = 'auto';
+        track.style.paddingRight = '0';
+        }
+    }
+
+    function scrollSlider(direction) {
+        const scrollAmount = slideWidth * itemsToScroll * direction;
+        currentPosition += scrollAmount;
+        
+        currentPosition = Math.max(0, Math.min(currentPosition, maxPosition));
+        
+        track.style.transform = `translateX(-${currentPosition}px)`;
+        updateButtons();
+    }
+
+    initSlider();
+    window.addEventListener('resize', initSlider);
+
+    prevBtn.addEventListener('click', function() {
+        scrollSlider(-1);
+    });
+
+    nextBtn.addEventListener('click', function() {
+        scrollSlider(1);
+    });
+    });
 </script>
