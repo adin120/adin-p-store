@@ -7,13 +7,6 @@
     overflow: hidden;
   }
 
-  @media (max-width: 768px) {
-    .picks-sellers-slider {
-      padding: 0px 10px 0px;
-      margin-bottom: 70px;
-    }
-  }
-
   .picks-title-container {
     max-width: 87%;
     padding-top: 50px;
@@ -22,27 +15,12 @@
     margin-top: 20px;
   }
 
-  @media (max-width: 768px) {
-    .picks-title-container {
-      padding-bottom: 10px;
-      max-width: 100%;
-      padding-inline: 20px;
-      padding-top: 20px;
-    }
-  }
-
   .picks-section-title {
     font-size: 28px;
     font-weight: 700;
     line-height: 1.5;
     letter-spacing: 0.05em;
     margin: 0;
-  }
-
-  @media (max-width: 768px) {
-    .picks-section-title {
-      font-size: 20px;
-    }
   }
 
   .picks-slider-container {
@@ -95,16 +73,6 @@
     margin: 0;
   }
 
-  @media (max-width: 768px) {
-    .picks-product-title {
-      font-size: 12px;
-    }
-
-    .picks-product-price {
-      font-size: 12px;
-    }
-  }
-
   .picks-slider-btn {
     width: 40px;
     height: 40px;
@@ -154,7 +122,7 @@
     }
 
     .picks-slider-btn {
-      top: 240px;
+      top: 43%;
     }
 
     .picks-product-title {
@@ -180,13 +148,50 @@
 
   @media (max-width: 992px) {
     .picks-slide {
-      flex: 0 0 calc(100% / 2.75 - 20px);
+      /* flex: 0 0 calc(100% / 2.75 - 20px); */
+      flex: 0 0 calc(100% / 2.65 - 20px);
     }
+
+    .picks-title-container {
+      max-width: 100%;
+      padding-inline: 20px;
+    }
+
     .picks-product-image {
       height: 380px;
     }
     .picks-slider-btn {
       top: 190px;
+    }
+
+    div#picks-slider-track {
+      padding-left: 20px !important;
+      padding-right: 20px !important;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .picks-sellers-slider {
+      padding: 0px 10px 0px;
+      margin-bottom: 70px;
+    }
+
+    .picks-title-container {
+      padding-bottom: 10px;
+      max-width: 100%;
+      padding-top: 20px;
+    }
+
+    .picks-section-title {
+      font-size: 20px;
+    }
+
+    .picks-product-title {
+      font-size: 12px;
+    }
+
+    .picks-product-price {
+      font-size: 12px;
     }
   }
 
@@ -201,11 +206,14 @@
 
     div#picks-slider-track {
       padding-right: 0 !important;
+      overflow-x: auto !important;
     }
 
     .picks-slider-btn {
-      top: 109px;
+      top: 40%;
+      display: none;
     }
+
     .picks-slider-track {
       padding-left: 10px !important;
     }

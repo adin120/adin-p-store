@@ -1,0 +1,138 @@
+{% schema %}
+{
+  "name": "Sub Footer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Copyright Text",
+      "default": "© 2025 FIGS, INC. ALL RIGHTS RESERVED"
+    },
+    {
+      "type": "url",
+      "id": "terms_url",
+      "label": "Terms of Use URL"
+    },
+    {
+      "type": "url",
+      "id": "privacy_url",
+      "label": "Privacy Policy URL"
+    },
+    {
+      "type": "text",
+      "id": "language_text",
+      "label": "Language Text",
+      "default": "United States | English"
+    },
+    {
+      "type": "image_picker",
+      "id": "flag_icon",
+      "label": "Flag Icon"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#282828"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#a3a3a3"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border Color",
+      "default": "#5d5656"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sub Footer"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  .sub-footer {
+    background-color: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+    align-items: center;
+    padding: 50px 0;
+    font-size: 14px;
+    border-top: 1px solid {{ section.settings.border_color }};
+  }
+
+  .sub-footer a {
+    color: {{ section.settings.text_color }};
+    text-decoration: none;
+  }
+
+  .sub-footer a:hover {
+    text-decoration: underline;
+  }
+
+  .sub-footer .language {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5px;
+  }
+
+  .sub-footer .flag {
+    width: 20px;
+    height: auto;
+    margin-right: 5px;
+  }
+
+  .sub-footer__terms-content p {
+    margin: 0;
+    padding: 0;
+  }
+
+  .language span {
+    color: #fff;
+    font-weight: bold;
+  }
+
+  .sub-footer__inner-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .sub-footer__inner-content {
+      flex-direction: row;
+      justify-content: space-between;
+      max-width: 90%;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .sub-footer__terms-content {
+        text-align: center;
+    }
+  }
+</style>
+
+<div class="sub-footer">
+  <div class="sub-footer__inner-content">
+    <div class="sub-footer__terms-content">
+      <p>{{ section.settings.copyright_text }}</p>
+      <p>
+        <a href="{{ section.settings.terms_url }}">Terms of Use</a> ·
+        <a href="{{ section.settings.privacy_url }}">Privacy Policy</a>
+      </p>
+    </div>
+    <div class="language">
+      {% if section.settings.flag_icon %}
+        <img src="{{ section.settings.flag_icon | img_url: '30x30' }}" class="flag" alt="Flag">
+      {% endif %}
+      <span>{{ section.settings.language_text }}</span>
+    </div>
+  </div>
+</div>

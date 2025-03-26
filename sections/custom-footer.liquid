@@ -1,0 +1,411 @@
+{% schema %}
+{
+  "name": "Custom Footer",
+  "settings": [
+    {
+      "type": "color",
+      "id": "footer_bg",
+      "label": "Footer Background Color",
+      "default": "#282828"
+    },
+    {
+      "type": "color",
+      "id": "footer_text",
+      "label": "Footer Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "footer_hover",
+      "label": "Footer Link Hover Color",
+      "default": "#f39c12"
+    },
+    {
+      "type": "color",
+      "id": "footer_section_title_color",
+      "label": "Footer Section Title Color",
+      "default": "#fff"
+    },
+    {
+      "type": "link_list",
+      "id": "footer_menu",
+      "label": "Footer Menu",
+      "default": "footer"
+    },
+    {
+      "type": "text",
+      "id": "footer_logo_text",
+      "label": "Footer Logo Text",
+      "default": "AWESOME HUMANS"
+    },
+    {
+      "type": "text",
+      "id": "footer_logo_hashtag_text",
+      "label": "Footer Hashtag Text",
+      "default": "#wearfigs"
+    },
+    {
+      "type": "url",
+      "id": "facebook_link",
+      "label": "Facebook URL"
+    },
+    {
+      "type": "url",
+      "id": "instagram_link",
+      "label": "Instagram URL"
+    },
+    {
+      "type": "url",
+      "id": "tiktok_link",
+      "label": "TikTok URL"
+    },
+    {
+      "type": "url",
+      "id": "pinterest_link",
+      "label": "Pinterest URL"
+    },
+    {
+      "type": "url",
+      "id": "youtube_link",
+      "label": "YouTube URL"
+    },
+    {
+      "type": "image_picker",
+      "id": "facebook_icon",
+      "label": "Facebook Icon"
+    },
+    {
+      "type": "image_picker",
+      "id": "twitter_icon",
+      "label": "X Icon"
+    },
+    {
+      "type": "image_picker",
+      "id": "instagram_icon",
+      "label": "Instagram Icon"
+    },
+    {
+      "type": "image_picker",
+      "id": "tiktok_icon",
+      "label": "TikTok Icon"
+    },
+    {
+      "type": "image_picker",
+      "id": "pinterest_icon",
+      "label": "Pinterest Icon"
+    },
+    {
+      "type": "image_picker",
+      "id": "youtube_icon",
+      "label": "YouTube Icon"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Footer",
+      "category": "Footer"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  .footer {
+    padding: 40px 0;
+    font-family: Arial, sans-serif;
+  }
+
+  .footer-container {
+    max-width: 1700px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 50px;
+    margin: 20px;
+  }
+
+  @media (max-width: 1270px) {
+    .footer-menus {
+        max-width: 100%;
+        width: 100%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .footer-container {
+      flex-direction: column;
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  .footer-logo {
+    max-width: 250px;
+    width: 100%;
+  }
+
+  .footer-logo h2 {
+    color: {{ section.settings.footer_section_title_color }};
+    font-weight: bold;
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: 7px;
+    line-height: 1.09;
+    text-transform: uppercase;
+    margin-bottom: 0;
+  }
+
+  .footer-logo h3 {
+    font-size: 14px;
+    color: {{ section.settings.footer_section_title_color }};
+    font-weight: 800;
+    letter-spacing: 5px;
+    line-height: .4;
+    text-transform: uppercase;
+  }
+
+  .footer-menus {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .footer-section {
+    flex: 1;
+    min-width: 200px;
+    margin: 10px;
+    text-align: left;
+  }
+
+  .footer-section h4 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: {{ section.settings.footer_section_title_color }};
+    text-transform: uppercase;
+  }
+
+  .footer-section ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .footer-section ul li {
+    margin: 5px 0;
+  }
+
+  .footer-social {
+    margin-top: 20px;
+    display: flex;
+    gap: 1px;
+  }
+
+  .footer-link {
+    text-decoration: none;
+    font-size: 14px;
+    color: var(--footer-text, #ffffff);
+    transition: color 0.3s ease-in-out;
+  }
+
+  .footer-link:hover {
+    color: var(--footer-hover, #f39c12);
+    text-decoration: underline;
+  }
+
+  .social-icon {
+    font-size: 20px;
+    margin: 0 10px;
+    text-decoration: none;
+    color: var(--footer-text, #ffffff);
+    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+  }
+
+  .social-icon:hover {
+    color: var(--footer-hover, #f39c12);
+    transform: scale(1.2);
+  }
+
+  .social-icon img {
+    width: 13px;
+    height: 13px;
+  }
+
+
+  @media (max-width: 768px) {
+    .footer-section {
+        border-bottom: 1px solid #373737;
+        max-width: 100%;
+        width: 100%;
+        margin: 0 auto;
+        padding: 0;
+        text-align: center;
+    }
+
+    .footer-section h4 {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        padding: 10px;
+        margin: 0;
+    }
+
+    .accordion-icon {
+        font-size: 18px;
+        transition: transform 0.3s ease;
+    }
+
+    .footer-section ul {
+        max-height: 0;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-in-out;
+    }
+
+    .footer-menus {
+        flex-direction: column;
+        text-align: center;
+    }
+
+     .footer-logo {
+        max-width: 100%;
+        text-align: center;
+        width: 100%;
+    }
+
+    .footer-social {
+        max-width: 100%;
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .footer-logo h2 {
+        margin: 0;
+        padding: 0;
+        font-size: 17px;
+    }
+
+     .social-icon img {
+        width: 18px;
+        height: 18px;
+    }
+
+    .footer-container {
+        gap: 10px;
+    }
+  }
+</style>
+
+<footer class="footer" style="background: {{ section.settings.footer_bg }}; color: {{ section.settings.footer_text }};">
+  <div class="footer-container">
+    <div class="footer-logo">
+      <h2>{{ section.settings.footer_logo_text }}</h2>
+      <h3>{{ section.settings.footer_logo_hashtag_text }}</h3>
+
+      <div class="footer-social">
+        {% if section.settings.facebook_link != blank and section.settings.facebook_icon != blank %}
+          <a href="{{ section.settings.facebook_link }}" class="social-icon">
+            <img src="{{ section.settings.facebook_icon | img_url: '20x20' }}" alt="Facebook">
+          </a>
+        {% endif %}
+
+        {% if section.settings.instagram_link != blank and section.settings.instagram_icon != blank %}
+          <a href="{{ section.settings.instagram_link }}" class="social-icon">
+            <img src="{{ section.settings.instagram_icon | img_url: '40x40' }}" alt="Instagram">
+          </a>
+        {% endif %}
+
+        {% if section.settings.tiktok_link != blank and section.settings.tiktok_icon != blank %}
+          <a href="{{ section.settings.tiktok_link }}" class="social-icon">
+            <img src="{{ section.settings.tiktok_icon | img_url: '40x40' }}" alt="TikTok">
+          </a>
+        {% endif %}
+
+        {% if section.settings.pinterest_link != blank and section.settings.pinterest_icon != blank %}
+          <a href="{{ section.settings.pinterest_link }}" class="social-icon">
+            <img src="{{ section.settings.pinterest_icon | img_url: '40x40' }}" alt="Pinterest">
+          </a>
+        {% endif %}
+
+        {% if section.settings.youtube_link != blank and section.settings.youtube_icon != blank %}
+          <a href="{{ section.settings.youtube_link }}" class="social-icon">
+            <img src="{{ section.settings.youtube_icon | img_url: '40x40' }}" alt="YouTube">
+          </a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="footer-menus">
+      {% assign menu = section.settings.footer_menu %}
+      {% for linklist in linklists[menu].links %}
+        <div class="footer-section">
+          <h4>{{ linklist.title }}</h4>
+          {% if linklist.links.size > 0 %}
+            <ul>
+              {% for child_link in linklist.links %}
+                <li>
+                  <a href="{{ child_link.url }}" class="footer-link">{{ child_link.title }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    function handleAccordion() {
+      const headers = document.querySelectorAll('.footer-section h4');
+
+      headers.forEach((header) => {
+        let icon = header.querySelector('.accordion-icon');
+        if (!icon) {
+          icon = document.createElement('span');
+          icon.classList.add('accordion-icon');
+          icon.innerHTML = '➕';
+          header.appendChild(icon);
+        }
+
+        header.addEventListener('click', function () {
+          const currentlyActive = document.querySelector('.footer-section.active');
+          const parent = this.parentElement;
+
+          if (currentlyActive && currentlyActive !== parent) {
+            currentlyActive.classList.remove('active');
+            currentlyActive.querySelector('ul').style.maxHeight = null;
+            currentlyActive.querySelector('.accordion-icon').innerHTML = '➕';
+          }
+
+          parent.classList.toggle('active');
+          const menu = parent.querySelector('ul');
+          const icon = this.querySelector('.accordion-icon');
+
+          if (parent.classList.contains('active')) {
+            menu.style.maxHeight = menu.scrollHeight + 'px';
+            icon.innerHTML = '➖';
+          } else {
+            menu.style.maxHeight = null;
+            icon.innerHTML = '➕';
+          }
+        });
+      });
+    }
+
+    if (window.innerWidth <= 768) {
+      handleAccordion();
+    }
+
+    window.addEventListener('resize', function () {
+      if (window.innerWidth <= 768) {
+        handleAccordion();
+      } else {
+        document.querySelectorAll('.accordion-icon').forEach((icon) => icon.remove());
+      }
+    });
+  });
+</script>
