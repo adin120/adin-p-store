@@ -6,33 +6,39 @@
     padding: 0;
     background-color: {{ section.settings.section_bg_color }};
   }
+
   .best-seller__image {
     width: 50%;
     height: auto;
     display: block;
   }
+
   .best-seller__image img {
     width: 100%;
     height: auto;
     display: block;
   }
+
   .best-seller__content-wrapper {
     width: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
   }
+
   .best-seller__content {
     max-width: 550px;
     padding: 40px;
     text-align: {{ section.settings.text_alignment }};
   }
+
   .best-seller__title {
     font-size: {{ section.settings.title_font_size }}px;
     margin-bottom: 20px;
     font-weight: bold;
     color: {{ section.settings.title_color }};
   }
+
   .best-seller__button {
     display: inline-block;
     color: {{ section.settings.button_text_color }};
@@ -72,17 +78,20 @@
 
   @media (max-width: 768px) {
     .best-seller-{{ section.id }} {
-      flex-direction: column;
+      flex-direction: column-reverse;
     }
+
     .best-seller__image,
     .best-seller__content-wrapper {
       width: 100%;
     }
+
     .best-seller__content {
       max-width: 100%;
       padding: 30px 20px;
     }
   }
+
   {% if section.settings.swap_layout %}
     .best-seller-{{ section.id }} .best-seller__image {
       order: 2;

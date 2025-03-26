@@ -15,7 +15,7 @@
   }
 
   .wildFigs-title-container {
-    max-width: 1500px;
+    max-width: 90%;
     width: 100%;
     padding: 50px 20px 0;
     margin: 0 auto;
@@ -56,6 +56,12 @@
     padding-left: 20px;
   }
 
+  @media (max-width: 768px) {
+    .wildFigs-slider-track {
+      padding-left: 0;
+    }
+  }
+
   .wildFigs-slide {
     flex: 0 0 calc(25% - 15px);
     margin-right: 15px;
@@ -93,36 +99,51 @@
   }
 
   @media (max-width: 1200px) {
-    .wildFigs-slide {
-      flex: 0 0 calc(33.333% - 15px);
-    }
-    .wildFigs-product-image {
-      height: 350px;
-    }
-  }
-
-  @media (max-width: 992px) {
-    .wildFigs-slide {
-      flex: 0 0 calc(50% - 15px);
-    }
     .wildFigs-product-image {
       height: 320px;
     }
   }
 
+  @media (max-width: 992px) {
+    .wildFigs-product-image {
+      height: 300px;
+    }
+  }
+
   @media (max-width: 768px) {
     .wildFigs-slide {
-      flex: 0 0 calc(100% - 15px);
+      flex: 0 0 calc(45% - 15px);
     }
+
     .wildFigs-product-image {
       height: auto;
       max-height: 400px;
     }
+
     .wildFigs-product-title {
       font-size: 14px;
     }
+
     .wildFigs-product-price {
       font-size: 14px;
+    }
+
+    .wildFigs-title-container {
+      margin: 0;
+    }
+  }
+
+  @media (max-width: 500px) {
+    .wildFigs-slide {
+      flex: 0 0 calc(50% - 15px);
+    }
+    .wildFigs-product-title {
+      font-size: 12px;
+      margin: 0;
+      padding: 0;
+    }
+    .wildFigs-slide {
+      text-align: left;
     }
   }
 
@@ -216,34 +237,71 @@
 
     let currentIndex = 0;
     const slideCount = slides.length;
-    const visibleSlides = 4;
+    let visibleSlides = window.innerWidth < 768 ? 2 : 4; // Adjust visible slides based on screen size
     let slideWidth = slides[0].offsetWidth + 15;
 
     function updateSlider() {
-      const maxIndex = Math.max(slideCount - visibleSlides, 0);
+      visibleSlides = window.innerWidth < 768 ? 2 : 4;
+      slideWidth = slides[0].offsetWidth + 15;
+      const maxIndex = slideCount - visibleSlides;
       currentIndex = Math.min(Math.max(currentIndex, 0), maxIndex);
+
+      // Ensure the last card is fully visible
+      if (currentIndex > maxIndex) {
+        currentIndex = maxIndex;
+      }
 
       const translateX = -currentIndex * slideWidth;
       track.style.transform = `translateX(${translateX}px)`;
 
-      prevBtn.style.opacity = currentIndex <= 0 ? '0.5' : '1';
-      prevBtn.style.pointerEvents = currentIndex <= 0 ? 'none' : 'auto';
-
-      nextBtn.style.opacity = currentIndex >= maxIndex ? '0.5' : '1';
-      nextBtn.style.pointerEvents = currentIndex >= maxIndex ? 'none' : 'auto';
+      if (window.innerWidth < 768) {
+        prevBtn.style.display = 'none';
+        nextBtn.style.display = 'none';
+      } else {
+        prevBtn.style.display = 'block';
+        nextBtn.style.display = 'block';
+      }
     }
 
     function scrollSlider(direction) {
       currentIndex += direction;
+      const maxIndex = slideCount - visibleSlides;
+      if (currentIndex > maxIndex) {
+        currentIndex = maxIndex;
+      }
       updateSlider();
     }
 
     prevBtn.addEventListener('click', () => scrollSlider(-1));
     nextBtn.addEventListener('click', () => scrollSlider(1));
 
-    window.addEventListener('resize', () => {
-      slideWidth = slides[0].offsetWidth + 15;
-      updateSlider();
+    window.addEventListener('resize', updateSlider);
+
+    // Touch Swiping
+    let startX = 0;
+    let isSwiping = false;
+
+    track.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+      isSwiping = true;
+    });
+
+    track.addEventListener('touchmove', (e) => {
+      if (!isSwiping) return;
+      let moveX = e.touches[0].clientX;
+      let diff = startX - moveX;
+      const maxIndex = slideCount - visibleSlides;
+      if (diff > 50 && currentIndex < maxIndex) {
+        scrollSlider(1);
+        isSwiping = false;
+      } else if (diff < -50 && currentIndex > 0) {
+        scrollSlider(-1);
+        isSwiping = false;
+      }
+    });
+
+    track.addEventListener('touchend', () => {
+      isSwiping = false;
     });
 
     updateSlider();
@@ -252,13 +310,13 @@
 
 {% schema %}
 {
-  "name": "Collection Slider",
+  "name": "Wild FIGS Collection",
   "settings": [
     {
       "type": "text",
       "id": "title",
       "label": "Section Title",
-      "default": "Featured Collections"
+      "default": "FIGS in the Wild"
     },
     {
       "type": "collection_list",
@@ -268,7 +326,7 @@
   ],
   "presets": [
     {
-      "name": "Collection Slider",
+      "name": "Wild FIGS Collection",
       "category": "Collections"
     }
   ]
