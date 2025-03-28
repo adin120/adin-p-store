@@ -9,70 +9,321 @@
  */
 {
   "sections": {
-    "image_banner": {
-      "type": "image-banner",
+    "video_hero_8JtwrF": {
+      "type": "video-hero",
+      "settings": {
+        "bg_type": "image",
+        "desktop_img": "shopify://shop_images/g.webp",
+        "title": "FROM THE GROUND UP",
+        "subtitle": "Start your journey on the right foot. FIGS | NEW BALANCE 997H is BACK, now in Mariner.",
+        "button_link": "shopify://collections/all",
+        "button_text": "Shop FIGS | NEW BALANCE",
+        "hero_content_text_color": "#fff",
+        "hero_content_button_bg": "#fff"
+      }
+    },
+    "slide_collections_GJPqkW": {
+      "type": "slide-collections",
       "blocks": {
-        "heading": {
-          "type": "heading",
+        "collection_FHTF3E": {
+          "type": "collection",
           "settings": {
-            "heading": "Browse our latest products",
-            "heading_size": "h0"
+            "collection": "indocyanine-green"
           }
         },
-        "button": {
-          "type": "buttons",
+        "collection_NMtHyX": {
+          "type": "collection",
           "settings": {
-            "button_label_1": "Shop all",
-            "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
+            "collection": "black"
+          }
+        },
+        "collection_xtqJEX": {
+          "type": "collection",
+          "settings": {
+            "collection": "navy"
+          }
+        },
+        "collection_DhKFpM": {
+          "type": "collection",
+          "settings": {
+            "collection": "moss"
+          }
+        },
+        "collection_XmRqy4": {
+          "type": "collection",
+          "settings": {
+            "collection": "royal-blue"
+          }
+        },
+        "collection_HfVa8M": {
+          "type": "collection",
+          "settings": {
+            "collection": "wayfarer"
+          }
+        },
+        "collection_qdXUKk": {
+          "type": "collection",
+          "settings": {
+            "collection": "charcoal"
+          }
+        },
+        "collection_g6YyjQ": {
+          "type": "collection",
+          "settings": {
+            "collection": "ceil-blue"
+          }
+        },
+        "collection_dM8R3n": {
+          "type": "collection",
+          "settings": {
+            "collection": "burgundy"
+          }
+        },
+        "collection_thtPjL": {
+          "type": "collection",
+          "settings": {
+            "collection": "slate"
+          }
+        },
+        "collection_wM6mAG": {
+          "type": "collection",
+          "settings": {
+            "collection": "mauve"
+          }
+        },
+        "collection_hwYPfa": {
+          "type": "collection",
+          "settings": {
+            "collection": "mariner"
+          }
+        },
+        "collection_FmEAFp": {
+          "type": "collection",
+          "settings": {
+            "collection": "chalk-pink"
+          }
+        },
+        "collection_ix3eHw": {
+          "type": "collection",
+          "settings": {
+            "collection": "teal"
+          }
+        },
+        "collection_UBCHtq": {
+          "type": "collection",
+          "settings": {
+            "collection": "graphite"
+          }
+        },
+        "collection_eRbLKn": {
+          "type": "collection",
+          "settings": {
+            "collection": "pop-red"
+          }
+        },
+        "collection_pkHVXC": {
+          "type": "collection",
+          "settings": {
+            "collection": "purple-jam"
+          }
+        },
+        "collection_fAc48f": {
+          "type": "collection",
+          "settings": {
+            "collection": "ceil-blue"
+          }
+        },
+        "collection_EwRfg3": {
+          "type": "collection",
+          "settings": {
+            "collection": "dirty-chai"
+          }
+        },
+        "collection_qmkabY": {
+          "type": "collection",
+          "settings": {
+            "collection": "bonsai"
+          }
+        },
+        "collection_6WwHaj": {
+          "type": "collection",
+          "settings": {
+            "collection": "optic-white"
+          }
+        },
+        "collection_UKV7kB": {
+          "type": "collection",
+          "settings": {
+            "collection": "fireside"
+          }
+        },
+        "collection_pgwtAf": {
+          "type": "collection",
+          "settings": {
+            "collection": "open-skies"
           }
         }
       },
-      "block_order": ["heading", "button"],
+      "block_order": [
+        "collection_FHTF3E",
+        "collection_NMtHyX",
+        "collection_xtqJEX",
+        "collection_DhKFpM",
+        "collection_XmRqy4",
+        "collection_HfVa8M",
+        "collection_qdXUKk",
+        "collection_g6YyjQ",
+        "collection_dM8R3n",
+        "collection_thtPjL",
+        "collection_wM6mAG",
+        "collection_hwYPfa",
+        "collection_FmEAFp",
+        "collection_ix3eHw",
+        "collection_UBCHtq",
+        "collection_eRbLKn",
+        "collection_pkHVXC",
+        "collection_fAc48f",
+        "collection_EwRfg3",
+        "collection_qmkabY",
+        "collection_6WwHaj",
+        "collection_UKV7kB",
+        "collection_pgwtAf"
+      ],
+      "settings": {}
+    },
+    "collections_grid_ayQL7e": {
+      "type": "collections-grid",
+      "blocks": {
+        "collection_gfJVKM": {
+          "type": "collection",
+          "settings": {
+            "collection": "scrub-tops"
+          }
+        },
+        "collection_HUaGpk": {
+          "type": "collection",
+          "settings": {
+            "collection": "scrub-pants"
+          }
+        },
+        "collection_EtdQfE": {
+          "type": "collection",
+          "settings": {
+            "collection": "outerwear"
+          }
+        },
+        "collection_xJPPzG": {
+          "type": "collection",
+          "settings": {
+            "collection": "underscrubs"
+          }
+        }
+      },
+      "block_order": [
+        "collection_gfJVKM",
+        "collection_HUaGpk",
+        "collection_EtdQfE",
+        "collection_xJPPzG"
+      ],
       "settings": {
-        "image_overlay_opacity": 40,
-        "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
-        "image_behavior": "none",
-        "desktop_content_alignment": "center",
-        "color_scheme": "scheme-3",
-        "mobile_content_alignment": "center",
-        "stack_images_on_mobile": false,
-        "show_text_below": false
+        "title": "Shop More FIGS"
       }
     },
-    "featured_collection": {
-      "type": "featured-collection",
+    "picks_product_slider_qPeq6K": {
+      "type": "picks-product-slider",
       "settings": {
-        "title": "Featured products",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "collection": "all",
-        "products_to_show": 8,
-        "columns_desktop": 4,
-        "color_scheme": "scheme-1",
-        "full_width": false,
-        "show_view_all": true,
-        "view_all_style": "solid",
-        "enable_desktop_slider": false,
-        "swipe_on_mobile": false,
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "columns_mobile": "2",
-        "padding_top": 44,
-        "padding_bottom": 36
+        "title": "Picks For You",
+        "collection": "picks-for-you",
+        "products_to_show": 15,
+        "items_visible": 4.5,
+        "items_to_scroll": 3,
+        "edge_spacing": 100
+      }
+    },
+    "course_banner_BXyxiC": {
+      "type": "course-banner",
+      "settings": {
+        "image": "shopify://shop_images/Desktop_W__5.webp",
+        "swap_layout": false,
+        "section_bg_color": "#ffffff",
+        "text_alignment": "center",
+        "title": "CHART YOUR COURSE",
+        "title_color": "#282828",
+        "title_font_size": 28,
+        "text": "<p>Neck Mariner and Wayfarer — bold new colors for those who move with purpose, push limits, and never back down.</p>",
+        "text_color": "#282828",
+        "text_font_size": 16,
+        "button_label": "SHOP MARINER-WAYFARER",
+        "button_link": "",
+        "button_text_color": "#000000",
+        "button_bg_color": "transparent",
+        "button_underline_color": "#000000",
+        "button_hover_text_color": "#888",
+        "button_hover_bg_color": "transparent",
+        "button_hover_underline_color": "#000000"
+      }
+    },
+    "best_seller_banner_VznYEn": {
+      "type": "best-seller-banner",
+      "settings": {
+        "image": "shopify://shop_images/Launch_Modules_CORE_BEST_SELLERS_DESKTOP_W.webp",
+        "swap_layout": true,
+        "section_bg_color": "#ffffff",
+        "text_alignment": "center",
+        "title": "BEST SELLERS",
+        "title_color": "#282828",
+        "title_font_size": 28,
+        "text": "<p>Your favorite styles in core colors, here all year round.</p>",
+        "text_color": "#282828",
+        "text_font_size": 16,
+        "button_label": "SHOP WOMEN",
+        "button_link": "",
+        "button_text_color": "#000000",
+        "button_bg_color": "transparent",
+        "button_underline_color": "#000000",
+        "button_hover_text_color": "#888",
+        "button_hover_bg_color": "transparent",
+        "button_hover_underline_color": "#000000"
+      }
+    },
+    "products_slider_DMbAVW": {
+      "type": "products-slider",
+      "settings": {
+        "title": "Women's Best Sellers",
+        "collection": "womens-best-sellers",
+        "products_to_show": 12,
+        "items_visible": 4.5,
+        "items_to_scroll": 3,
+        "edge_spacing": 100
+      }
+    },
+    "figs_collection_slider_pBRXPQ": {
+      "type": "figs-collection-slider",
+      "settings": {
+        "title": "FIGS in the Wild",
+        "collections": [
+          "contourknit-scrub-jacket™",
+          "catarina-one-pocket-scrub-top™",
+          "rafaela-oversized-scrub-top™",
+          "on-shift-float-bomber-vest™",
+          "high-waisted-seville-flare-scrublegging™",
+          "figs-new-balance-3447",
+          "catarina-one-pocket-scrub-top™-1",
+          "high-waisted-zamora-jogger-scrub-pants™",
+          "yola-skinny-scrub-pants™",
+          "casma-three-pocket-scrub-top™"
+        ]
       }
     }
   },
-  "order": ["image_banner", "featured_collection"]
+  "order": [
+    "video_hero_8JtwrF",
+    "slide_collections_GJPqkW",
+    "collections_grid_ayQL7e",
+    "picks_product_slider_qPeq6K",
+    "course_banner_BXyxiC",
+    "best_seller_banner_VznYEn",
+    "products_slider_DMbAVW",
+    "figs_collection_slider_pBRXPQ"
+  ]
 }
