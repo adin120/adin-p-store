@@ -1,19 +1,19 @@
 <div class="main-video-container">
-  <div class="banner_bg">
+  <div class="relative w-full overflow-hidden">
     {% if section.settings.bg_type == 'image' %}
       <div class="banner_img">
         {% if section.settings.desktop_img != blank %}
           {{
             section.settings.desktop_img
             | image_url: width: section.settings.desktop_img.width
-            | image_tag: loading: 'lazy', class: 'desktop_img'
+            | image_tag: loading: 'lazy', class: 'desktop_img w-full h-auto object-cover'
           }}
         {% endif %}
         {% if section.settings.mobile_img != blank %}
           {{
             section.settings.mobile_img
             | image_url: width: section.settings.mobile_img.width
-            | image_tag: loading: 'lazy', class: 'mobile_img'
+            | image_tag: loading: 'lazy', class: 'mobile_img w-full h-auto object-cover'
           }}
         {% endif %}
       </div>
@@ -22,95 +22,48 @@
         {% if section.settings.desktop_video != blank %}
           {{
             section.settings.desktop_video
-            | video_tag: autoplay: true, loop: true, muted: true, class: 'desktop_video'
+            | video_tag: autoplay: true, loop: true, muted: true, class: 'desktop_video w-full h-auto object-cover'
           }}
         {% endif %}
         {% if section.settings.mobile_video != blank %}
           {{
             section.settings.mobile_video
-            | video_tag: autoplay: true, loop: true, muted: true, class: 'mobile_video'
+            | video_tag: autoplay: true, loop: true, muted: true, class: 'mobile_video w-full h-auto object-cover'
           }}
         {% endif %}
       </div>
     {% endif %}
 
-    <!-- Moved text inside banner_bg -->
-    <div class="banner_content">
-      <div class="banner_content_inner">
-        <h3 class="banner_title">{{ section.settings.title }}</h3>
-        <p class="banner_subtitle">{{ section.settings.subtitle }}</p>
-        <a href="{{ section.settings.button_link }}" class="banner_button">{{ section.settings.button_text }}</a>
+    <div class="absolute top-[46%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-white z-10 w-full max-w-[590px] p-5">
+      <div>
+        <h3
+          class="text-[36px] font-bold leading-[1.25] tracking-[0.15em] uppercase"
+          style="color: {{ section.settings.hero_content_text_color }}"
+        >
+          {{ section.settings.title }}
+        </h3>
+        <p
+          class="text-[18px] font-semibold leading-[1.7] tracking-[0.05em] mt-4"
+          style="color: {{ section.settings.hero_content_text_color }}"
+        >
+          {{ section.settings.subtitle }}
+        </p>
+        <a
+          href="{{ section.settings.button_link }}"
+          class="inline-block mt-6 px-9 py-5 text-black no-underline font-bold text-[14px] uppercase rounded-[5px] border-none transition-all duration-300 ease-in-out hover:opacity-80"
+          style="background: {{ section.settings.hero_content_button_bg }}"
+        >
+          {{- section.settings.button_text -}}
+        </a>
       </div>
     </div>
   </div>
 </div>
 
+<script src="https://cdn.tailwindcss.com"></script>
+
 <style>
-   .banner_bg {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-  }
-
-  .banner_content {
-    position: absolute;
-    top: 46%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    color: white;
-    z-index: 10;
-    width: 100%;
-    max-width: 590px;
-    padding: 20px;
-  }
-
-  .banner_img img,
-  .banner_video video {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-  }
-
-  .banner_title {
-    font-size: 36px;
-    font-weight: 700;
-    line-height: 1.25;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: {{ section.settings.hero_content_text_color }};
-  }
-
-  .banner_subtitle {
-    font-size: 16px;
-    font-weight: 600;
-    color: {{ section.settings.hero_content_text_color }};
-    line-height: 1.7;
-    letter-spacing: 0.05em;
-    font-family: Figs, Raleway, sans-serif;
-  }
-
-  .banner_button {
-    display: inline-block;
-    background: {{ section.settings.hero_content_button_bg }};
-    color: black;
-    padding: 12px 24px;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 12px;
-    text-transform: uppercase;
-    border-radius: 5px;
-    border: none;
-    transition: all 0.3s ease-in-out;
-  }
-
-  .banner_button:hover {
-    background: rgba(255, 255, 255, 0.8);
-  }
-
-  /* Responsive Fix */
   @media (max-width: 768px) {
-
     .banner_title {
       font-size: 2rem;
     }
