@@ -101,6 +101,46 @@
         "shop_more_spacing": 20
       }
     },
+    "key_features_JKXMcQ": {
+      "type": "key-features",
+      "blocks": {
+        "feature_xJiy6x": {
+          "type": "feature",
+          "settings": {
+            "icon": "shopify://shop_images/FIGS_Fabric_Icons_ClassicFit.webp",
+            "title": "PDR"
+          }
+        },
+        "feature_XHRV69": {
+          "type": "feature",
+          "settings": {
+            "icon": "shopify://shop_images/icon-pocket.webp",
+            "title": "Feature Title"
+          }
+        },
+        "feature_P4hp6T": {
+          "type": "feature",
+          "settings": {
+            "icon": "shopify://shop_images/icon-antiwrinkle.webp",
+            "title": "Feature Title"
+          }
+        },
+        "feature_xMFqkw": {
+          "type": "feature",
+          "settings": {
+            "icon": "shopify://shop_images/icon-supersoft.webp",
+            "title": "Feature Title"
+          }
+        }
+      },
+      "block_order": [
+        "feature_xJiy6x",
+        "feature_XHRV69",
+        "feature_P4hp6T",
+        "feature_xMFqkw"
+      ],
+      "settings": {}
+    },
     "related-products": {
       "type": "related-products",
       "settings": {
@@ -122,6 +162,7 @@
   },
   "order": [
     "main",
+    "key_features_JKXMcQ",
     "related-products"
   ]
 }
