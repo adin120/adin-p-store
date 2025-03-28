@@ -1,0 +1,136 @@
+{% schema %}
+{
+  "name": "Key Features",
+  "max_blocks": 8,
+  "settings": [],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Feature Icon"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Feature Title",
+          "default": "Feature Title"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Key Features",
+      "blocks": [
+        {
+          "type": "feature"
+        },
+        {
+          "type": "feature"
+        },
+        {
+          "type": "feature"
+        },
+        {
+          "type": "feature"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  .key-features {
+    padding: 60px 0;
+    background: #f5f5f5;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .feature-item {
+    text-align: center;
+    padding: 20px;
+    position: relative;
+  }
+
+  .feature-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 60%;
+    width: 1px;
+    background-color: #e0e0e0;
+  }
+
+  .feature-icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 15px;
+  }
+
+  .feature-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .feature-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0;
+  }
+
+  @media screen and (max-width: 991px) {
+    .features-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+    }
+
+    .feature-item:nth-child(2n)::after {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .features-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .feature-item::after {
+      display: none;
+    }
+  }
+</style>
+
+<div class="key-features">
+  <div class="features-grid">
+    {% for block in section.blocks %}
+      <div class="feature-item" {{ block.shopify_attributes }}>
+        {% if block.settings.icon %}
+          <div class="feature-icon">
+            <img src="{{ block.settings.icon | img_url: '100x' }}" alt="{{ block.settings.title }}" loading="lazy">
+          </div>
+        {% endif %}
+        <h3 class="feature-title">{{ block.settings.title }}</h3>
+      </div>
+    {% endfor %}
+  </div>
+</div>

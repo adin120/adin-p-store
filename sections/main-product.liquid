@@ -76,7 +76,7 @@
   <div class="page-width">
     <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
       <div class="grid__item product__media-wrapper">
-        {% render 'product-media-gallery', variant_images: variant_images %}
+        {% render 'product-gallery-slider' %}
       </div>
       <div class="product__info-wrapper grid__item{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
         <section
@@ -356,7 +356,10 @@
                                 </dt>
                                 <dd>
                                   <span class="price-per-item--current">
-                                    {{- 'products.product.volume_pricing.price_at_each_html' | t: price: variant_price -}}
+                                    {{-
+                                      'products.product.volume_pricing.price_at_each_html'
+                                      | t: price: variant_price
+                                    -}}
                                   </span>
                                 </dd>
                               </dl>
@@ -471,6 +474,486 @@
                   section_id: section.id,
                   show_pickup_availability: true
                 -%}
+
+                <!-- Product Details Accordion -->
+                <div class="product-accordions">
+                  <details class="accordion-item">
+                    <summary class="accordion-header">
+                      <span class="accordion-title">Product Details</span>
+                      <span class="accordion-icon">
+                        <span class="plus">+</span>
+                        <span class="minus">−</span>
+                      </span>
+                    </summary>
+                    <div class="accordion-content">
+                      <p class="model-info">Model is 5'8.5" / Wearing XS</p>
+
+                      <div class="length-recommendations">
+                        <p>Regular length recommended for heights 5'5" and above</p>
+                        <p>Petite length recommended for heights 5'5" and under</p>
+                      </div>
+
+                      <ul class="features-list">
+                        <li>Total of one pocket</li>
+                        <li>One chest pocket</li>
+                        <li>Classic fit</li>
+                        <li>Modern V-neck</li>
+                        <li>Darted back</li>
+                        <li>Side-slit hem</li>
+                        <li>Engineered with Technical Comfort™</li>
+                      </ul>
+
+                      <p class="note">
+                        All of our scrubs are named after places we've donated scrubs and people we've met along the
+                        way!
+                      </p>
+                    </div>
+                  </details>
+
+                  <details class="accordion-item">
+                    <summary class="accordion-header">
+                      <span class="accordion-title">Fabric & Care</span>
+                      <span class="accordion-icon">
+                        <span class="plus">+</span>
+                        <span class="minus">−</span>
+                      </span>
+                    </summary>
+                    <div class="accordion-content">
+                      <p>
+                        Features our proprietary FIONx™ fabric with four-way stretch, moisture-wicking, anti-wrinkle and
+                        ridiculously soft properties
+                      </p>
+                      <p>
+                        Features Silvadur™ antimicrobial technology, which provides odor protection, inhibits the growth
+                        of bacteria, yeast, algae, and other microorganisms that cause odor and fabric damage, and
+                        increases the lifespan of the product
+                      </p>
+
+                      <div class="fabric-composition">
+                        <p>72% Polyester</p>
+                        <p>21% Rayon</p>
+                        <p>7% Spandex</p>
+                        <p>100% Awesome</p>
+                      </div>
+
+                      <p class="care-instructions">Wash cold inside-out, tumble dry low</p>
+                    </div>
+                  </details>
+                </div>
+
+                <!-- Shop More Section -->
+                {%- if section.settings.show_shop_more -%}
+                  <div class="shop-more-section">
+                    {%- if section.settings.shop_more_heading != blank -%}
+                      <h2 class="shop-more-heading">{{ section.settings.shop_more_heading }}</h2>
+                    {%- endif -%}
+                    <div class="shop-more-links">
+                      {%- for block in section.blocks -%}
+                        {%- if block.type == 'shop_more_link' -%}
+                          <a href="{{ block.settings.link }}" class="shop-more-link">
+                            {{ block.settings.text }}
+                          </a>
+                        {%- endif -%}
+                      {%- endfor -%}
+                    </div>
+                  </div>
+                {%- endif -%}
+
+                <style>
+                  .product-accordions {
+                    margin-top: 2.5rem;
+                    border-radius: 12px;
+                    overflow: hidden;
+                    background: rgba(var(--color-foreground), 0.03);
+                    box-shadow: 0 2px 15px rgba(var(--color-foreground), 0.05);
+                  }
+
+                  .accordion-item {
+                    border-bottom: 1px solid rgba(var(--color-foreground), 0.08);
+                    background: rgba(var(--color-background), 1);
+                    transition: all 0.3s ease;
+                  }
+
+                  .accordion-item:last-child {
+                    border-bottom: none;
+                  }
+
+                  .accordion-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    width: 100%;
+                    padding: 1.8rem 2rem;
+                    cursor: pointer;
+                    background: none;
+                    border: none;
+                    text-align: left;
+                    transition: all 0.3s ease;
+                  }
+
+                  .accordion-header:hover {
+                    background: rgba(var(--color-foreground), 0.03);
+                  }
+
+                  .accordion-title {
+                    font-size: 1.6rem;
+                    font-weight: 500;
+                    color: rgb(var(--color-foreground));
+                    letter-spacing: 0.02em;
+                  }
+
+                  .accordion-icon {
+                    position: relative;
+                    width: 2rem;
+                    height: 2rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    transition: transform 0.3s ease;
+                  }
+
+                  .accordion-icon .plus,
+                  .accordion-icon .minus {
+                    position: absolute;
+                    font-size: 2rem;
+                    line-height: 1;
+                    transition: all 0.3s ease;
+                  }
+
+                  .accordion-icon .plus {
+                    opacity: 1;
+                    transform: rotate(0deg);
+                  }
+
+                  .accordion-icon .minus {
+                    opacity: 0;
+                    transform: rotate(-90deg);
+                  }
+
+                  details[open] .accordion-icon .plus {
+                    opacity: 0;
+                    transform: rotate(90deg);
+                  }
+
+                  details[open] .accordion-icon .minus {
+                    opacity: 1;
+                    transform: rotate(0deg);
+                  }
+
+                  .accordion-content {
+                    padding: 0 2rem 2rem;
+                    font-size: 1.4rem;
+                    line-height: 1.6;
+                    color: rgba(var(--color-foreground), 0.75);
+                    animation: slideDown 0.35s ease-out;
+                    background: linear-gradient(
+                      180deg,
+                      rgba(var(--color-background), 0.5) 0%,
+                      rgba(var(--color-background), 1) 100%
+                    );
+                  }
+
+                  .model-info {
+                    font-weight: 500;
+                    margin-bottom: 1.8rem;
+                    color: rgb(var(--color-foreground));
+                    padding: 1rem 1.5rem;
+                    background: rgba(var(--color-foreground), 0.04);
+                    border-radius: 8px;
+                  }
+
+                  .length-recommendations {
+                    margin-bottom: 1.8rem;
+                    padding: 1rem 0;
+                  }
+
+                  .length-recommendations p {
+                    margin-bottom: 0.8rem;
+                    padding-left: 1.2rem;
+                    border-left: 2px solid rgba(var(--color-foreground), 0.2);
+                  }
+
+                  .features-list {
+                    list-style: none;
+                    padding: 0;
+                    margin: 0 0 1.8rem;
+                  }
+
+                  .features-list li {
+                    position: relative;
+                    padding-left: 1.8rem;
+                    margin-bottom: 1rem;
+                  }
+
+                  .features-list li::before {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    top: 0.8rem;
+                    width: 0.6rem;
+                    height: 0.6rem;
+                    background-color: rgba(var(--color-foreground), 0.6);
+                    border-radius: 50%;
+                    transition: all 0.2s ease;
+                  }
+
+                  .features-list li:hover::before {
+                    background-color: rgb(var(--color-foreground));
+                    transform: scale(1.2);
+                  }
+
+                  .fabric-composition {
+                    margin: 1.8rem 0;
+                    padding: 1.5rem;
+                    background: rgba(var(--color-foreground), 0.04);
+                    border-radius: 8px;
+                  }
+
+                  .fabric-composition p {
+                    margin-bottom: 0.5rem;
+                    font-weight: 500;
+                  }
+
+                  .fabric-composition p:last-child {
+                    margin-bottom: 0;
+                    color: rgb(var(--color-foreground));
+                  }
+
+                  .note,
+                  .care-instructions {
+                    font-style: italic;
+                    padding: 1rem 1.5rem;
+                    background: rgba(var(--color-foreground), 0.04);
+                    border-radius: 8px;
+                    margin-top: 1.5rem;
+                  }
+
+                  @keyframes slideDown {
+                    from {
+                      opacity: 0;
+                      transform: translateY(-10px);
+                    }
+                    to {
+                      opacity: 1;
+                      transform: translateY(0);
+                    }
+                  }
+
+                  @media screen and (max-width: 768px) {
+                    .product-accordions {
+                      margin-top: 2rem;
+                      border-radius: 8px;
+                    }
+
+                    .accordion-header {
+                      padding: 1.5rem;
+                    }
+
+                    .accordion-title {
+                      font-size: 1.4rem;
+                    }
+
+                    .accordion-content {
+                      padding: 0 1.5rem 1.5rem;
+                      font-size: 1.3rem;
+                    }
+
+                    .model-info,
+                    .fabric-composition,
+                    .note,
+                    .care-instructions {
+                      padding: 1rem;
+                      border-radius: 6px;
+                    }
+                  }
+
+                  .shop-more-section {
+                    margin-top: 4rem;
+                    padding-top: 3rem;
+                    border-top: 1px solid rgba(var(--color-foreground), 0.08);
+                  }
+
+                  .shop-more-heading {
+                    font-size: 1.8rem;
+                    font-weight: 600;
+                    margin-bottom: 2.5rem;
+                    color: rgb(var(--color-foreground));
+                    letter-spacing: 0.1em;
+                    text-transform: uppercase;
+                  }
+
+                  .shop-more-links {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 1.5rem;
+                  }
+
+                  .shop-more-link {
+                    position: relative;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    min-width: 160px;
+                    padding: 1.2rem 2.8rem;
+                    text-decoration: none;
+                    font-size: 1.4rem;
+                    font-weight: 500;
+                    letter-spacing: 0.08em;
+                    text-transform: uppercase;
+                    color: rgb(var(--color-foreground));
+                    background: transparent;
+                    border: 2px solid rgba(var(--color-foreground), 0.15);
+                    border-radius: 100px;
+                    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+                    overflow: hidden;
+                    z-index: 1;
+                  }
+
+                  .shop-more-link::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgb(var(--color-foreground));
+                    transform: scaleX(0);
+                    transform-origin: right;
+                    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+                    z-index: -1;
+                  }
+
+                  .shop-more-link:hover {
+                    color: rgb(var(--color-background));
+                    transform: translateY(-2px);
+                    box-shadow: 0 6px 20px rgba(var(--color-foreground), 0.15);
+                  }
+
+                  .shop-more-link:hover::before {
+                    transform: scaleX(1);
+                    transform-origin: left;
+                  }
+
+                  .shop-more-link:active {
+                    transform: translateY(0);
+                    box-shadow: 0 2px 10px rgba(var(--color-foreground), 0.1);
+                  }
+
+                  @keyframes gradientShift {
+                    0% {
+                      background-position: 0% 50%;
+                    }
+                    50% {
+                      background-position: 100% 50%;
+                    }
+                    100% {
+                      background-position: 0% 50%;
+                    }
+                  }
+
+                  .shop-more-link.gradient-hover:hover {
+                    background: linear-gradient(
+                      90deg,
+                      rgb(var(--color-foreground)) 0%,
+                      rgba(var(--color-foreground), 0.8) 50%,
+                      rgb(var(--color-foreground)) 100%
+                    );
+                    background-size: 200% auto;
+                    animation: gradientShift 3s ease infinite;
+                    border-color: transparent;
+                  }
+
+                  @media screen and (max-width: 768px) {
+                    .shop-more-section {
+                      margin-top: 3rem;
+                      padding-top: 2rem;
+                    }
+
+                    .shop-more-heading {
+                      font-size: 1.6rem;
+                      margin-bottom: 2rem;
+                    }
+
+                    .shop-more-links {
+                      flex-direction: column;
+                      gap: 1rem;
+                    }
+
+                    .shop-more-link {
+                      width: 100%;
+                      padding: 1.2rem 2.4rem;
+                      font-size: 1.3rem;
+                    }
+                  }
+
+                  .shop-more-link:focus {
+                    outline: none;
+                    box-shadow: 0 0 0 3px rgba(var(--color-foreground), 0.3);
+                  }
+
+                  .shop-more-link.loading {
+                    pointer-events: none;
+                    opacity: 0.7;
+                  }
+
+                  .shop-more-link.loading::after {
+                    content: '';
+                    position: absolute;
+                    width: 20px;
+                    height: 20px;
+                    border: 2px solid transparent;
+                    border-top-color: currentColor;
+                    border-radius: 50%;
+                    animation: button-loading-spinner 0.8s linear infinite;
+                  }
+
+                  @keyframes button-loading-spinner {
+                    from {
+                      transform: rotate(0turn);
+                    }
+                    to {
+                      transform: rotate(1turn);
+                    }
+                  }
+                </style>
+
+                <script>
+                  document.addEventListener('DOMContentLoaded', () => {
+                    const accordions = document.querySelectorAll('.accordion-item');
+
+                    accordions.forEach((accordion) => {
+                      accordion.addEventListener('click', (e) => {
+                        if (e.target.closest('.accordion-header')) {
+                          // Add a small delay to allow the animation to complete
+                          setTimeout(() => {
+                            // Close other accordions
+                            accordions.forEach((otherAccordion) => {
+                              if (otherAccordion !== accordion && otherAccordion.hasAttribute('open')) {
+                                otherAccordion.removeAttribute('open');
+                              }
+                            });
+                          }, 50);
+                        }
+                      });
+                    });
+                  });
+                </script>
+
+                <script>
+                  document.addEventListener('DOMContentLoaded', () => {
+                    const shopMoreLinks = document.querySelectorAll('.shop-more-link');
+
+                    shopMoreLinks.forEach((link) => {
+                      link.addEventListener('mouseover', () => {
+                        link.style.transform = 'translateY(-2px)';
+                      });
+
+                      link.addEventListener('mouseout', () => {
+                        link.style.transform = 'translateY(0)';
+                      });
+                    });
+                  });
+                </script>
               {%- when 'rating' -%}
                 {%- if product.metafields.reviews.rating.value != blank -%}
                   <div class="rating-wrapper">
@@ -1674,7 +2157,7 @@
         {
           "type": "header",
           "content": "t:sections.main-product.blocks.icon_with_text.settings.pairing_2.label"
-        },        
+        },
         {
           "type": "select",
           "id": "icon_2",
@@ -1874,7 +2357,7 @@
         {
           "type": "header",
           "content": "t:sections.main-product.blocks.icon_with_text.settings.pairing_3.label"
-        },        
+        },
         {
           "type": "select",
           "id": "icon_3",
@@ -2072,6 +2555,36 @@
           "info": "t:sections.main-product.blocks.icon_with_text.settings.heading.info"
         }
       ]
+    },
+    {
+      "type": "shop_more_link",
+      "name": "Shop More Link",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Link Text",
+          "default": "Shop Link"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link URL"
+        },
+        {
+          "type": "color",
+          "id": "button_color",
+          "label": "Button Color",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "button_text_color",
+          "label": "Button Text Color",
+          "default": "#FFFFFF"
+        }
+      ]
     }
   ],
   "settings": [
@@ -2176,7 +2689,7 @@
       ],
       "default": "hide",
       "label": "t:sections.main-product.settings.mobile_thumbnails.label"
-    },    
+    },
     {
       "type": "select",
       "id": "media_position",
@@ -2248,6 +2761,48 @@
       "unit": "px",
       "label": "t:sections.all.padding.padding_bottom",
       "default": 36
+    },
+    {
+      "type": "header",
+      "content": "Shop More Section"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_shop_more",
+      "label": "Show Shop More Section",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "shop_more_heading",
+      "label": "Section Heading",
+      "default": "SHOP MORE"
+    },
+    {
+      "type": "select",
+      "id": "shop_more_layout",
+      "label": "Layout Style",
+      "options": [
+        {
+          "value": "horizontal",
+          "label": "Horizontal"
+        },
+        {
+          "value": "grid",
+          "label": "Grid"
+        }
+      ],
+      "default": "horizontal"
+    },
+    {
+      "type": "range",
+      "id": "shop_more_spacing",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Space Between Links",
+      "default": 20
     }
   ]
 }

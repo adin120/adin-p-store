@@ -2,75 +2,297 @@
 {{ 'component-collection-hero.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
+  /* Your existing banner styles */
   @media screen and (max-width: 749px) {
     .collection-hero--with-image .collection-hero__inner {
-      padding-bottom: calc({{ settings.media_shadow_vertical_offset | at_least: 0 }}px + 2rem);
+      padding-bottom: calc({{settings.media_shadow_vertical_offset | at_least: 0}}px + 2rem);
+    }
+  }
+
+  .collection-hero {
+    padding: 0 !important;
+    margin: 0;
+  }
+
+  .collection-hero .hero__collection-bg {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 40vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .hero__collection-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+
+  .collection-hero .collection-hero__text-wrapper {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 2rem;
+    color: #ffffff;
+  }
+
+  .collection-hero .collection-hero__title {
+    color: inherit;
+    margin: 0;
+    font-size: 35px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    line-height: 1.2;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  }
+
+  .collection-hero .collection-hero__description {
+    color: inherit;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    max-width: 800px;
+    margin: 1rem auto 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .collection-hero .collection-hero__title {
+      font-size: 2rem;
+    }
+
+    .collection-hero .hero__collection-bg {
+      height: 25vh;
+    }
+  }
+
+  .collection-filter-bar {
+    display: flex;
+    justify-content: center;
+    padding: 4rem 0;
+    margin: 0 auto;
+    max-width: 100%;
+    background: #ebebeb;
+  }
+
+  .collection-filter-btn {
+    padding: 7px 30px;
+    border: none;
+    border: 2px solid #000;
+    border-radius: 50px;
+    background: transparent;
+    color: rgba(0, 0, 0, 0.7);
+    font-size: 1.3rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0 10px;
+  }
+
+  .collection-filter-btn:hover {
+    color: rgba(0, 0, 0, 0.9);
+    background-color: #000;
+    color: #fff;
+  }
+
+  .collection-filter-btn.active {
+    color: #fff;
+    background-color: #000;
+    font-weight: 600;
+  }
+
+  .collection {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  aside#main-collection-filters {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  @media screen and (max-width: 749px) {
+    .collection-hero .hero__collection-bg {
+      height: 25vh;
     }
   }
 {%- endstyle -%}
 
-<div class="collection-hero{% if section.settings.show_collection_image and collection.image %} collection-hero--with-image{% endif %} color-{{ section.settings.color_scheme }} gradient">
-  <div class="collection-hero__inner page-width {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
-    <div class="collection-hero__text-wrapper">
-      <h1 class="collection-hero__title">
-        <span class="visually-hidden">{{ 'sections.collection_template.title' | t }}: </span>
-        {{- collection.title | escape -}}
-      </h1>
+<div class="collection-hero{% if section.settings.show_collection_banner or section.settings.show_collection_image %} collection-hero--with-image{% endif %} color-{{ section.settings.color_scheme }} gradient">
+  <div class="collection-hero__inner {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+    {%- if section.settings.show_collection_banner and section.settings.banner_image != blank -%}
+      <div
+        class="hero__collection-bg"
+        style="background-image: url({{ section.settings.banner_image | img_url: '2048x' }});"
+      >
+        <div class="collection-hero__text-wrapper">
+          <h1 class="collection-hero__title">
+            <span class="visually-hidden">{{ 'sections.collection_template.title' | t }}: </span>
+            {{- collection.title | escape -}}
+          </h1>
 
-      {%- if section.settings.show_collection_description -%}
-        <div class="collection-hero__description rte">{{ collection.description }}</div>
-      {%- endif -%}
-    </div>
+          {%- if section.settings.show_collection_description -%}
+            <div class="collection-hero__description rte">{{ collection.description }}</div>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- elsif section.settings.show_collection_image and collection.image -%}
+      <div
+        class="hero__collection-bg"
+        style="background-image: url({{ collection.image | img_url: '2048x' }});"
+      >
+        <div class="collection-hero__text-wrapper">
+          {%- if section.settings.show_collection_description -%}
+            <div class="collection-hero__description rte">{{ collection.description }}</div>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- else -%}
+      <div class="collection-hero__text-wrapper">
+        <h1 class="collection-hero__title">
+          <span class="visually-hidden">{{ 'sections.collection_template.title' | t }}: </span>
+          {{- collection.title | escape -}}
+        </h1>
 
-    {%- if section.settings.show_collection_image and collection.image -%}
-      <div class="collection-hero__image-container media gradient">
-        <img
-          srcset="
-            {%- if collection.image.width >= 165 -%}{{ collection.image | image_url: width: 165 }} 165w,{%- endif -%}
-            {%- if collection.image.width >= 360 -%}{{ collection.image | image_url: width: 360 }} 360w,{%- endif -%}
-            {%- if collection.image.width >= 535 -%}{{ collection.image | image_url: width: 535 }} 535w,{%- endif -%}
-            {%- if collection.image.width >= 750 -%}{{ collection.image | image_url: width: 750 }} 750w,{%- endif -%}
-            {%- if collection.image.width >= 1070 -%}{{ collection.image | image_url: width: 1070 }} 1070w,{%- endif -%}
-            {%- if collection.image.width >= 1500 -%}{{ collection.image | image_url: width: 1500 }} 1500w,{%- endif -%}
-            {{ collection.image | image_url }} {{ collection.image.width }}w
-          "
-          src="{{ collection.image | image_url: width: 750 }}"
-          sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px, (min-width: 750px) calc(50vw - 130px), calc(50vw - 55px)"
-          alt="{{ collection.image.alt | escape }}"
-          width="{{ collection.image.width }}"
-          height="{{ collection.image.height }}"
-        >
+        {%- if section.settings.show_collection_description -%}
+          <div class="collection-hero__description rte">{{ collection.description }}</div>
+        {%- endif -%}
       </div>
     {%- endif -%}
   </div>
 </div>
 
+{%- assign women_collection = collections[section.settings.women_collection] -%}
+{%- assign men_collection = collections[section.settings.men_collection] -%}
+
+<div class="collection-filter-bar container">
+  {%- if women_collection != blank -%}
+    <button
+      class="collection-filter-btn {% if collection.handle == women_collection.handle %}active{% endif %}"
+      data-collection-url="{{ women_collection.url }}"
+    >
+      Women
+    </button>
+  {%- endif -%}
+
+  {%- if men_collection != blank -%}
+    <button
+      class="collection-filter-btn {% if collection.handle == men_collection.handle %}active{% endif %}"
+      data-collection-url="{{ men_collection.url }}"
+    >
+      Men
+    </button>
+  {%- endif -%}
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const collectionButtons = document.querySelectorAll('.collection-filter-btn[data-collection-url]');
+
+    collectionButtons.forEach((button) => {
+      button.addEventListener('click', function () {
+        const collectionUrl = this.dataset.collectionUrl;
+
+        document.body.classList.add('loading-collection');
+
+        fetch(`${collectionUrl}?view=ajax-products`)
+          .then((response) => {
+            if (!response.ok) throw new Error('Network response was not ok');
+            return response.text();
+          })
+          .then((html) => {
+            const productGrid = document.querySelector('#product-grid, .product-grid');
+            if (productGrid) {
+              productGrid.innerHTML = html;
+            }
+
+            collectionButtons.forEach((btn) => btn.classList.remove('active'));
+            this.classList.add('active');
+
+            window.history.pushState({ path: collectionUrl }, '', collectionUrl);
+          })
+          .catch((error) => {
+            console.error('Error loading collection:', error);
+          })
+          .finally(() => {
+            document.body.classList.remove('loading-collection');
+          });
+      });
+    });
+
+    window.addEventListener('popstate', function (event) {
+      if (event.state && event.state.path) {
+        window.location.href = event.state.path;
+      }
+    });
+  });
+</script>
+
 {% schema %}
 {
-  "name": "t:sections.main-collection-banner.name",
+  "name": "Collection banner Filters",
   "class": "section",
   "settings": [
     {
       "type": "paragraph",
-      "content": "t:sections.main-collection-banner.settings.paragraph.content"
+      "content": "Banner settings"
     },
     {
       "type": "checkbox",
       "id": "show_collection_description",
       "default": true,
-      "label": "t:sections.main-collection-banner.settings.show_collection_description.label"
+      "label": "Show collection description"
+    },
+    {
+      "type": "header",
+      "content": "Banner Image Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_banner",
+      "default": true,
+      "label": "Show custom banner image",
+      "info": "Upload a custom banner image below"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Banner image",
+      "info": "Recommended size: 2000x600 pixels"
     },
     {
       "type": "checkbox",
       "id": "show_collection_image",
       "default": false,
-      "label": "t:sections.main-collection-banner.settings.show_collection_image.label"
+      "label": "Fallback to collection image",
+      "info": "Shows collection image if no banner is uploaded"
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "t:sections.all.colors.label",
+      "label": "Color scheme",
       "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Collection Filters"
+    },
+    {
+      "type": "collection",
+      "id": "women_collection",
+      "label": "Women's collection (default)"
+    },
+    {
+      "type": "collection",
+      "id": "men_collection",
+      "label": "Men's collection"
     }
   ]
 }

@@ -1,0 +1,328 @@
+<!-- Swiper CSS and JS from CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+<style>
+  .product-gallery {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .thumbnails-column {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 135px;
+    max-height: 600px;
+    overflow-y: auto;
+    padding-right: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: #4caf50 #f1f1f1;
+  }
+
+  .thumbnails-column::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .thumbnails-column::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+  }
+
+  .thumbnails-column::-webkit-scrollbar-thumb {
+    background: #4caf50;
+    border-radius: 10px;
+  }
+
+  .thumbnail-item {
+    width: fit-content;
+    height: 120px;
+    cursor: pointer;
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid transparent;
+    transition: all 0.4s ease;
+    opacity: 0.6;
+    filter: grayscale(40%) blur(1px);
+  }
+
+  .thumbnail-item::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .thumbnail-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    opacity: 0.8;
+    filter: grayscale(20%) blur(0px);
+  }
+
+  .thumbnail-item.active {
+    border-color: #4caf50;
+    opacity: 1;
+    filter: none;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+  }
+
+  .thumbnail-item.active::after {
+    background: transparent;
+  }
+
+  .thumbnail-item img,
+  .thumbnail-item video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+  }
+
+  .main-slider {
+    flex: 1;
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  .main-slider .swiper-slide {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    background: #fff;
+  }
+
+  .main-slider .swiper-slide img,
+  .main-slider .swiper-slide video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    z-index: 10;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    border: none;
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .main-slider:hover .nav-button {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .nav-button:hover {
+    background: #fff;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    transform: translateY(-50%) scale(1.05);
+  }
+
+  .nav-button.prev {
+    left: 20px;
+  }
+
+  .nav-button.next {
+    right: 20px;
+  }
+
+  .nav-button svg {
+    width: 24px;
+    height: 24px;
+    fill: #333;
+  }
+
+  @media (max-width: 1024px) {
+    .product-gallery {
+      padding: 15px;
+    }
+
+    .main-slider {
+      height: 500px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .product-gallery {
+      flex-direction: column-reverse;
+      gap: 15px;
+    }
+
+    .thumbnails-column {
+      flex-direction: row;
+      width: 100%;
+      max-height: none;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 10px 0;
+      gap: 10px;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .thumbnails-column::-webkit-scrollbar {
+      display: none;
+    }
+
+    .thumbnail-item {
+      width: 80px;
+      height: 80px;
+      flex-shrink: 0;
+    }
+
+    .main-slider {
+      width: 100%;
+      height: 400px;
+    }
+
+    .nav-button {
+      opacity: 1;
+      visibility: visible;
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .product-gallery {
+      padding: 10px;
+      gap: 10px;
+    }
+
+    .main-slider {
+      height: 300px;
+      border-radius: 12px;
+    }
+
+    .thumbnail-item {
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+    }
+
+    .nav-button {
+      width: 36px;
+      height: 36px;
+    }
+
+    .nav-button svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+</style>
+
+<div class="product-gallery">
+  <div class="thumbnails-column">
+    {%- for media in product.media -%}
+      <div class="thumbnail-item" data-index="{{ forloop.index0 }}">
+        <img
+          src="{{ media | image_url: width: 240 }}"
+          alt="{{ media.alt | escape }}"
+          loading="lazy"
+        >
+      </div>
+    {%- endfor -%}
+    <div class="thumbnail-item" data-index="{{ product.media.size }}">
+      <video autoplay loop muted playsinline>
+        <source src="https://cdn.shopify.com/videos/c/o/v/235e0ef93813476fa736a9afe46c5433.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+
+  <div class="swiper main-slider">
+    <div class="swiper-wrapper">
+      {%- for media in product.media -%}
+        <div class="swiper-slide">
+          <img
+            src="{{ media | image_url: width: 1200 }}"
+            alt="{{ media.alt | escape }}"
+            loading="lazy"
+          >
+        </div>
+      {%- endfor -%}
+      <div class="swiper-slide">
+        <video autoplay loop muted playsinline>
+          <source src="https://cdn.shopify.com/videos/c/o/v/235e0ef93813476fa736a9afe46c5433.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+
+    <button class="nav-button prev" aria-label="Previous slide">
+      <svg viewBox="0 0 24 24">
+        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+      </svg>
+    </button>
+    <button class="nav-button next" aria-label="Next slide">
+      <svg viewBox="0 0 24 24">
+        <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<script>
+  window.addEventListener('DOMContentLoaded', function () {
+    const mainSwiper = new Swiper('.main-slider', {
+      slidesPerView: 1,
+      spaceBetween: 10,
+      loop: true,
+      speed: 500,
+      effect: 'fade',
+      fadeEffect: {
+        crossFade: true,
+      },
+      navigation: {
+        nextEl: '.nav-button.next',
+        prevEl: '.nav-button.prev',
+      },
+    });
+
+    const thumbnails = document.querySelectorAll('.thumbnail-item');
+    thumbnails.forEach((thumb, index) => {
+      thumb.addEventListener('click', () => {
+        mainSwiper.slideTo(index);
+        thumbnails.forEach((t) => t.classList.remove('active'));
+        thumb.classList.add('active');
+      });
+    });
+
+    mainSwiper.on('slideChange', () => {
+      const realIndex = mainSwiper.realIndex;
+      thumbnails.forEach((thumb, index) => {
+        if (index === realIndex) {
+          thumb.classList.add('active');
+          if (window.innerWidth <= 768) {
+            thumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+          }
+        } else {
+          thumb.classList.remove('active');
+        }
+      });
+    });
+
+    thumbnails[0].classList.add('active');
+  });
+</script>
