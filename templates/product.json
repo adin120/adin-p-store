@@ -34,6 +34,18 @@
             "swatch_shape": "circle"
           }
         },
+        "accessory_UxJ9xd": {
+          "type": "accessory",
+          "settings": {
+            "product": "catarina-one-pocket-scrub-top™-1"
+          }
+        },
+        "accessory_3xPmKB": {
+          "type": "accessory",
+          "settings": {
+            "product": "catarina-one-pocket-scrub-top™"
+          }
+        },
         "quantity_selector": {
           "type": "quantity_selector",
           "settings": {}
@@ -61,12 +73,15 @@
         "title",
         "price",
         "variant_picker",
+        "accessory_UxJ9xd",
+        "accessory_3xPmKB",
         "quantity_selector",
         "buy_buttons",
         "description",
         "share"
       ],
       "settings": {
+        "add_accessories": "Add Accessories",
         "enable_sticky_info": true,
         "color_scheme": "scheme-1",
         "media_size": "large",
@@ -79,7 +94,11 @@
         "hide_variants": true,
         "enable_video_looping": false,
         "padding_top": 36,
-        "padding_bottom": 12
+        "padding_bottom": 12,
+        "show_shop_more": true,
+        "shop_more_heading": "SHOP MORE",
+        "shop_more_layout": "horizontal",
+        "shop_more_spacing": 20
       }
     },
     "related-products": {
