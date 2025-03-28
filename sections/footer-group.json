@@ -11,8 +11,45 @@
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
+    "custom_footer_Gd4ARm": {
+      "type": "custom-footer",
+      "settings": {
+        "footer_bg": "#282828",
+        "footer_text": "#ffffff",
+        "footer_hover": "#f39c12",
+        "footer_section_title_color": "#fff",
+        "footer_menu": "footer",
+        "footer_logo_text": "AWESOME HUMANS",
+        "footer_logo_hashtag_text": "#wearfigs",
+        "facebook_link": "#",
+        "instagram_link": "#",
+        "tiktok_link": "#",
+        "pinterest_link": "#",
+        "youtube_link": "#",
+        "facebook_icon": "shopify://shop_images/fb.svg",
+        "twitter_icon": "shopify://shop_images/X_Logo.svg",
+        "instagram_icon": "shopify://shop_images/ig.svg",
+        "tiktok_icon": "shopify://shop_images/ig.svg",
+        "pinterest_icon": "shopify://shop_images/pin.svg",
+        "youtube_icon": "shopify://shop_images/youtube.svg"
+      }
+    },
+    "custom_sub_footer_UqTxXh": {
+      "type": "custom-sub-footer",
+      "settings": {
+        "copyright_text": "© 2025 FIGS, INC. ALL RIGHTS RESERVED",
+        "terms_url": "#",
+        "privacy_url": "#",
+        "language_text": "United States | English",
+        "flag_icon": "shopify://shop_images/FlagUS.webp",
+        "background_color": "#282828",
+        "text_color": "#a3a3a3",
+        "border_color": "#5d5656"
+      }
+    },
     "footer": {
       "type": "footer",
+      "disabled": true,
       "settings": {
         "color_scheme": "scheme-1",
         "newsletter_enable": true,
@@ -30,6 +67,8 @@
     }
   },
   "order": [
+    "custom_footer_Gd4ARm",
+    "custom_sub_footer_UqTxXh",
     "footer"
   ]
 }
