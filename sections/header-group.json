@@ -14,23 +14,35 @@
     "announcement_bar_fAJMTf": {
       "type": "announcement-bar",
       "blocks": {
-        "announcement_UPeKWV": {
-          "type": "announcement",
+        "text_block_yVeAPV": {
+          "type": "text_block",
           "settings": {
-            "text": "Welcome to our store",
-            "link": ""
+            "announcement_text": "MATCH DAY 20% OFF EVERYTHING.",
+            "link_text_1": "Shop Now.",
+            "link_url_1": "shopify://collections",
+            "link_text_2": "Terms.",
+            "link_url_2": "shopify://policies/privacy-policy"
+          }
+        },
+        "text_block_kPfYPK": {
+          "type": "text_block",
+          "settings": {
+            "announcement_text": "MATCH DAY 20% OFF EVERYTHING.",
+            "link_text_1": "Shop Now.",
+            "link_url_1": "shopify://collections",
+            "link_text_2": "Terms.",
+            "link_url_2": "shopify://policies/privacy-policy"
           }
         }
       },
-      "block_order": ["announcement_UPeKWV"],
+      "block_order": [
+        "text_block_yVeAPV",
+        "text_block_kPfYPK"
+      ],
       "settings": {
-        "auto_rotate": false,
-        "change_slides_speed": 5,
-        "color_scheme": "",
-        "show_line_separator": true,
-        "show_social": false,
-        "enable_country_selector": false,
-        "enable_language_selector": false
+        "bg_color": "#1a1a1a",
+        "text_color": "#ffffff",
+        "link_color": "#ffffff"
       }
     },
     "header": {
@@ -53,5 +65,8 @@
       }
     }
   },
-  "order": ["announcement_bar_fAJMTf", "header"]
+  "order": [
+    "announcement_bar_fAJMTf",
+    "header"
+  ]
 }
